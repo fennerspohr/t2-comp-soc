@@ -1,18 +1,32 @@
+<script setup>
+import HelloWorld from './components/HelloWorld.vue'
+import Cadastro from './Cadastro.vue'
+import { ref, computed } from 'vue'
+
+const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
+  '/': HelloWorld,
+  '/about': Cadastro
+}
+
+const currentPath = ref(window.location.hash) //pega o path atual, que eh o que fica depois da # na url (antes de clicar nos botoes nao tem # nenhuma pq eh a url inicial)
+
+window.addEventListener('hashchange', () => { //fica assistindo a # da url e quando a rota muda, altera o currentPath
+  currentPath.value = window.location.hash
+})
+
+const currentView = computed(() => { //altear o currentView
+  return routes[currentPath.value.slice(1) || '/'] //seleciona a rota de acordo com a string do currentPath
+})
+
+
+</script>
+
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <a href="#/about">Cadastro</a> | <!-- o que estiver nesse template vai ser exibido independente da url-->
+  <a href="#/">Home</a>
+  <component :is="currentView" /> <!--Aqui é exibido o conteudo da view correspondente -->
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
 <style>
 #app {
