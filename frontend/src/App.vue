@@ -2,10 +2,11 @@
 import HelloWorld from './components/HelloWorld.vue'
 import Cadastro from './Cadastro.vue'
 import { ref, computed } from 'vue'
+import Navbarteste from './components/navbarteste.vue'
 
 const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
   '/': HelloWorld,
-  '/about': Cadastro
+  '/about': Cadastro,
 }
 
 const currentPath = ref(window.location.hash) //pega o path atual, que eh o que fica depois da # na url (antes de clicar nos botoes nao tem # nenhuma pq eh a url inicial)
@@ -22,8 +23,7 @@ const currentView = computed(() => { //altear o currentView
 </script>
 
 <template>
-  <a href="#/about">Cadastro</a> | <!-- o que estiver nesse template vai ser exibido independente da url-->
-  <a href="#/">Home</a>
+  <Navbarteste></Navbarteste> <!-- o que estiver nesse template vai ser exibido independente da url-->
   <component :is="currentView" /> <!--Aqui é exibido o conteudo da view correspondente -->
 </template>
 
@@ -35,6 +35,6 @@ const currentView = computed(() => { //altear o currentView
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 0px;
 }
 </style>
