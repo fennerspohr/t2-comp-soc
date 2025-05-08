@@ -11,8 +11,19 @@ OBS: eu não sei se precisa instalar isso pra rodar o servidor ou se serve só p
 
     npm install -g @vue/cli
 
+
+PARA INSTALAR TAILWIND E DAISY UI
+    npm install tailwindcss@latest @tailwindcss/vite@latest daisyui@latest
+
 PRA RODAR O SEVIDOR DO VUE:
     com o terminal dentro da pasta frontend
 
-    
-    npm run serve
+    na primeira vez que for rodar com tailwind e daisy ACHO que tem que rodar isso antes: npm install
+
+
+    npm run dev
+
+
+
+OBSERVAÇÕES:
+- style.css é um css importado globalmente; qualquer coisa que for ser usada em vários lugares pode colocar la

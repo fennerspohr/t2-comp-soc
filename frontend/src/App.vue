@@ -27,7 +27,6 @@ const currentView = computed(() => { //altear o currentView
   <component :is="currentView" /> <!--Aqui é exibido o conteudo da view correspondente -->
 </template>
 
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
