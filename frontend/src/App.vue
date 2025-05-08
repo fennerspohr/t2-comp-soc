@@ -37,4 +37,9 @@ const currentView = computed(() => { //altear o currentView
   color: #2c3e50;
   margin-top: 0px;
 }
+
+body {
+  padding: 0 !important;
+  margin: 0 !important;
+ }
 </style>
