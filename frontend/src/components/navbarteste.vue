@@ -5,7 +5,7 @@
                 <ul>
                     <li><a href="#">Home</a></li>
                     <li><a href="#/about">Cadastro</a></li>
-                    <li><a href="#">Consulta</a></li>
+                    <li><a href="#/consulta">Consulta</a></li>
                 </ul>
             </nav>
             <img src="../assets/criancas.png" width="100px" height="100px">

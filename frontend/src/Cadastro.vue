@@ -1,6 +1,6 @@
 <template>
     <img alt="Vue logo" src="./assets/logo.png">
-    <div class="btn btn-neutral">CADASTROOO</div>
+    <div class="btn btn-neutral">CADASTRO</div>
 </template>
 <script>
 
