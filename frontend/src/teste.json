@@ -1,0 +1,62 @@
+[
+    {
+    "nome": "Luiza",
+    "sexo": "Feminino",
+    "inicio_mse": "2023",
+    "fim_mse": "2024",
+    "ato_infracional": "Furto"
+    },
+    {
+    "nome": "Gustavo",
+    "sexo": "Masculino",
+    "inicio_mse": "2022",
+    "fim_mse": "2023",
+    "ato_infracional": "Vandalismo"
+    },
+    {
+    "nome": "Isadora",
+    "sexo": "Feminino",
+    "inicio_mse": "2024",
+    "fim_mse": "2025",
+    "ato_infracional": "Agressão"
+    },
+
+    {
+    "nome": "Nathalia",
+    "sexo": "Feminino",
+    "inicio_mse": "2024",
+    "fim_mse": "2025",
+    "ato_infracional": "Roubo"
+    }, 
+    
+    {
+    "nome": "Luiza",
+    "sexo": "Feminino",
+    "inicio_mse": "2023",
+    "fim_mse": "2024",
+    "ato_infracional": "Furto"
+    },
+    {
+    "nome": "Gustavo",
+    "sexo": "Masculino",
+    "inicio_mse": "2022",
+    "fim_mse": "2023",
+    "ato_infracional": "Vandalismo"
+    },
+
+    {
+    "nome": "Isadora",
+    "sexo": "Feminino",
+    "inicio_mse": "2024",
+    "fim_mse": "2025",
+    "ato_infracional": "Agressão"
+    },
+
+    {
+    "nome": "Nathalia",
+    "sexo": "Feminino",
+    "inicio_mse": "2024",
+    "fim_mse": "2025",
+    "ato_infracional": "Roubo"
+  }
+]
