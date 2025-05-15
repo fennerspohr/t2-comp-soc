@@ -37,7 +37,7 @@
     >
       <div class="modal-box">
         <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">X</button>
         </form>
         <h3 class="font-bold text-lg mb-2">Detalhes do Registro</h3>
         <p><strong>Nome:</strong> {{ registro.nome }}</p>
@@ -60,13 +60,11 @@ onMounted(() => {
   dados.value = teste //ao carregar a pagina preenche os dados com o JSON
 })
 
-function abrirModal(id) {
-  const modal = document.getElementById(`modal-${id}`)
-  if (modal) {
-    modal.showModal()
-  }
-}
 
+//abre a visualização 
+function abrirModal(id) {
+  document.getElementById(`modal-${id}`).showModal()
+}
 </script>
 
 <style scoped>

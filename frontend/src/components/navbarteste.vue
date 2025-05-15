@@ -23,7 +23,7 @@ export default {
 <style scoped>
     li, a {
         font-size: 20px;
-        color: white;
+        color: rgba(0, 0, 0, 0.411);
         text-decoration: none;
     }
     header {
@@ -32,11 +32,11 @@ export default {
         justify-content: flex-end;
         align-items: center;
         padding: 10px;
-        background-color: darkcyan;
+        background-color: rgb(218, 203, 173);
         position: relative;
     }
     .logotipo {
-        color: white;
+        color: rgb(71, 54, 49);
         font-size: 35px;
         font-weight: bold; 
         margin-right: auto;  
@@ -49,7 +49,7 @@ export default {
         padding: 0px 20px;
     }
     .nav-links li a:hover{
-        color: black;
+        color: rgb(0, 0, 0);
     }
 
 </style>
