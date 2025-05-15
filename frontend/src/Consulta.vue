@@ -21,10 +21,32 @@
             <td>{{ registro.inicio_mse }}</td>
             <td>{{ registro.fim_mse }}</td>
             <td>{{ registro.ato_infracional }}</td>
+            <td>
+              <button class="btn btn-sm" @click="abrirModal(id)">view</button>  <!--cria o botao como um item de cada linha que ao ser clicado abre o modal-->
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <!-- modal para cada item -->
+    <dialog
+      v-for="(registro, id) in dados" 
+      :id="`modal-${id}`"
+      :key="`modal-${id}`"
+      class="modal"
+    >
+      <div class="modal-box">
+        <form method="dialog">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="font-bold text-lg mb-2">Detalhes do Registro</h3>
+        <p><strong>Nome:</strong> {{ registro.nome }}</p>
+        <p><strong>Sexo:</strong> {{ registro.sexo }}</p>
+        <p><strong>Início MSE:</strong> {{ registro.inicio_mse }}</p>
+        <p><strong>Fim MSE:</strong> {{ registro.fim_mse }}</p>
+        <p><strong>Ato Infracional:</strong> {{ registro.ato_infracional }}</p>
+      </div>
+    </dialog>
   </div>
 </template>
 
@@ -37,6 +59,14 @@ const dados = ref([]) //cria uma lista vazia
 onMounted(() => {
   dados.value = teste //ao carregar a pagina preenche os dados com o JSON
 })
+
+function abrirModal(id) {
+  const modal = document.getElementById(`modal-${id}`)
+  if (modal) {
+    modal.showModal()
+  }
+}
+
 </script>
 
 <style scoped>
