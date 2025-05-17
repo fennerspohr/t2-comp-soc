@@ -4,9 +4,10 @@ import Cadastro from './Cadastro.vue'
 import { ref, computed } from 'vue'
 import Navbarteste from './components/navbarteste.vue'
 import Consulta from './Consulta.vue'
+import telaLogin from './telaLogin.vue'
 
 const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
-  '/': HelloWorld,
+  '/': telaLogin,
   '/about': Cadastro,
   '/consulta': Consulta, 
 }
