@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'bdedica',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    'bdedicaapp'
 
 ]
 
