@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "cpf": "123.456.789-10",
+    "nome": "João da Silva",
+    "nome_social": "João da Silva",
+    "sexo": "Masculino",
+    "endereco": "Rua das Flores, 123",
+    "bairro": "Centro",
+    "data_nasc": "2006-05-15",
+    "tem_ct": true,
+    "nome_ct": "Luciana Mendes"
+  },
+  {
+    "id": 2,
+    "cpf": "987.654.321-00",
+    "nome": "Maria Oliveira",
+    "nome_social": "Maria Oliveira",
+    "sexo": "Feminino",
+    "endereco": "Avenida Brasil, 456",
+    "bairro": "Jardim América",
+    "data_nasc": "2007-03-22",
+    "tem_ct": false,
+    "nome_ct": ""
+  },
+  {
+    "id": 3,
+    "cpf": "111.222.333-44",
+    "nome": "Carlos Souza",
+    "nome_social": "Carlos Souza",
+    "sexo": "Masculino",
+    "endereco": "Rua das Palmeiras, 789",
+    "bairro": "Zona Norte",
+    "data_nasc": "2005-10-10",
+    "tem_ct": true,
+    "nome_ct": "Ricardo Lima"
+  },
+  {
+    "id": 4,
+    "cpf": "555.666.777-88",
+    "nome": "Ana Beatriz",
+    "nome_social": "Ana Beatriz",
+    "sexo": "Feminino",
+    "endereco": "Rua dos Estudantes, 321",
+    "bairro": "Vila Nova",
+    "data_nasc": "2008-07-30",
+    "tem_ct": true,
+    "nome_ct": "Fernanda Alves"
+  },
+  {
+    "id": 5,
+    "cpf": "999.888.777-66",
+    "nome": "Rafael Costa",
+    "nome_social": "Rafael Costa",
+    "sexo": "Outro",
+    "endereco": "Rua Independência, 111",
+    "bairro": "Liberdade",
+    "data_nasc": "2006-12-01",
+    "tem_ct": false,
+    "nome_ct": ""
+  }
+]

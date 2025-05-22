@@ -15,7 +15,6 @@
       <label class="label">Sexo</label>
       <select class="select" v-model="form.sexo" required>
         <option disabled value="">Selecione</option>
-        <option>Não informado</option>
         <option>Feminino</option>
         <option>Masculino</option>
         <option>Outro</option>
@@ -45,12 +44,16 @@
         :disabled="!form.temCT"
         :required="form.temCT"
       />
+      <div>
+      <button class="btn">Cadastrar</button>
+    </div>
     </fieldset>
+    
   </form>
 </template>
 
 <script setup>
-import { reactive, watch } from 'vue'
+import { computed, reactive, watch } from 'vue'
 
 // Estado reativo do formulário
 const form = reactive({
@@ -75,6 +78,7 @@ watch(() => form.temCT, (checked) => {
 function submitForm() {
   console.log('Dados enviados:', form) //apenas printa os dados que ele pegou do form no console
 }
+
 </script>
 
 <style>

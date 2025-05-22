@@ -3,15 +3,17 @@ import HelloWorld from './components/HelloWorld.vue'
 import Cadastro from './Cadastro.vue'
 import { ref, computed } from 'vue'
 import Navbarteste from './components/navbarteste.vue'
-import Consulta from './Consulta.vue'
+import listamse from './listamse.vue'
 import telaLogin from './telaLogin.vue'
 import CadastroAdolescente from './CadastroAdolescente.vue'
+import listaAdolescentes from './lista-adolescentes.vue'
 
 const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
   '/': telaLogin,
   '/about': Cadastro,
-  '/consulta': Consulta, 
-  '/about/cadastro-adolescente': CadastroAdolescente
+  '/about/cadastro-adolescente': CadastroAdolescente,
+  '/listamse': listamse,
+  '/lista-adolescentes': listaAdolescentes, 
 }
 
 const currentPath = ref(window.location.hash) //pega o path atual, que eh o que fica depois da # na url (antes de clicar nos botoes nao tem # nenhuma pq eh a url inicial)
