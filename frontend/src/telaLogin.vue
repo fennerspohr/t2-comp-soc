@@ -8,9 +8,9 @@
             <h1>Entre no sistema</h1>
             <div class="campo">
                 <label for="email">Seu e-mail</label>
-                <input type="email" id="email"/>
+                <input type="email" id="email" required/>
                 <label for="password">Sua senha</label>
-                <input type="password" id="password" />
+                <input type="password" id="password" required />
             </div>
             <button class="btn" id="btn" @click="logar">Entrar</button>
         </form>
@@ -79,7 +79,7 @@ export default {
 
     input {
         padding: 10px 20px;
-        border-radius: 10px;
+        border-radius: 20px;
         background-color: rgb(71, 54, 49);
         color: white;
         border: none;

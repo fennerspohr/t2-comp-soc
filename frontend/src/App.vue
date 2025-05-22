@@ -5,11 +5,13 @@ import { ref, computed } from 'vue'
 import Navbarteste from './components/navbarteste.vue'
 import Consulta from './Consulta.vue'
 import telaLogin from './telaLogin.vue'
+import CadastroAdolescente from './CadastroAdolescente.vue'
 
 const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
   '/': telaLogin,
   '/about': Cadastro,
   '/consulta': Consulta, 
+  '/about/cadastro-adolescente': CadastroAdolescente
 }
 
 const currentPath = ref(window.location.hash) //pega o path atual, que eh o que fica depois da # na url (antes de clicar nos botoes nao tem # nenhuma pq eh a url inicial)

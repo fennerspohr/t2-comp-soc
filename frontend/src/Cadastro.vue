@@ -1,10 +1,10 @@
 <template>
     <img alt="Vue logo" src="./assets/logo.png">
     <div class="btn btn-neutral">CADASTRO</div>
+    <a href="#/about/cadastro-adolescente"> Cadastro Adolescente</a>
 </template>
 <script>
 
-  
   export default {
   name: 'Cadastro',
 }
