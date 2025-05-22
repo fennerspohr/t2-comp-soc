@@ -7,9 +7,9 @@
     <nav class="flex-none">
       <ul class="menu menu-horizontal px-1 text-base-content">
 
-        <li><a href="#/about" class="hover:text-primary">Cadastro</a></li>
+        <li><a href="#/about" class="hover:text-primary hover-secondary-focus ">Cadastro</a></li>
         <li><a href="#/listamse" class="hover:text-primary">MSEs</a></li>
-        <li><a href="#/lista-adolescentes" class="hover:text-primary">Adolescentes</a></li>
+        <li><a href="#/lista-adolescentes" class="hover:text-primary:">Adolescentes</a></li>
       </ul>
     </nav>
 
