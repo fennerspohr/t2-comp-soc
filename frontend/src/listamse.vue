@@ -22,11 +22,11 @@
           <input type="search" required placeholder="Pesquisar" />
         </label>
         <!--botão de adicionar-->
-        <button className="btn btn-circle btn-sm">
+        <a href="#/about/cadastromse"className="btn btn-circle btn-sm">
           <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
-        </button>
+        </a>
       </div>
     </div>
     <div class="overflow-x-auto">

@@ -7,6 +7,7 @@ import listamse from './listamse.vue'
 import telaLogin from './telaLogin.vue'
 import CadastroAdolescente from './CadastroAdolescente.vue'
 import listaAdolescentes from './lista-adolescentes.vue'
+import cadastromse from './cadastromse.vue'
 
 const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
   '/': telaLogin,
@@ -14,6 +15,7 @@ const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
   '/about/cadastro-adolescente': CadastroAdolescente,
   '/listamse': listamse,
   '/lista-adolescentes': listaAdolescentes, 
+  '/about/cadastromse': cadastromse,
 }
 
 const currentPath = ref(window.location.hash) //pega o path atual, que eh o que fica depois da # na url (antes de clicar nos botoes nao tem # nenhuma pq eh a url inicial)
