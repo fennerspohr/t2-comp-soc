@@ -9,6 +9,7 @@ import CadastroAdolescente from './CadastroAdolescente.vue'
 import listaAdolescentes from './lista-adolescentes.vue'
 import cadastromse from './cadastromse.vue'
 
+
 const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
   '/': telaLogin,
   '/about': Cadastro,

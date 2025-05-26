@@ -35,25 +35,27 @@
         <!-- Cabeçalho -->
         <thead>
           <tr>
-            <th>ID</th>
             <th>Processo</th>
+            <th>Ato Infracional</th>
+            <th>Tipo MSE</th>
             <th>Adolescente</th>
+            <th>Orientador</th>
             <th>Inicio</th>
             <th>Fim</th>
-            <th>Tipo MSE</th>
-            <th>Status</th>
+            <th>Situação</th>
           </tr>
         </thead>
         <!-- Corpo da Tabela -->
         <tbody>
           <tr v-for="(registro, id) in dados" :key="id"> <!--pra cada item de dados cria uma tabela usando registro como variavel e id como posição do item-->
-            <td>{{ registro.id}}</td>
-            <td>{{ registro.processo }}</td>
-            <td>{{ registro.adolescente }}</td>
-            <td>{{ registro.inicio}}</td>
-            <td>{{ registro.fim}}</td>
-            <td>{{ registro.tipo_mse}}</td>
-            <td>{{ registro.concluida ? 'Concluído' : 'Vigente' }}</td>
+            <td>{{ registro.processo_num}}</td>
+            <td>{{ registro.ato_infracional }}</td>
+            <td>{{ registro.tipo_MSE}}</td>
+            <td>{{ registro.idAdolescente}}</td>
+            <td>{{ registro.idOrientador}}</td>
+            <td>{{ registro.data_inicio}}</td>
+            <td>{{ registro.data_fim}}</td>
+            <td>{{ registro.tipo_finalizacao}}</td>
             
             <!--modal de visualização-->
             <td>
@@ -67,9 +69,9 @@
           </button>
             </td>
 
-           <!--modal de editar-->
+           <!--botão de editar-->
             <td>
-          <a href="#/about/editarmse" class="btn btn-soft btn-primary">
+          <a href="#/about/editarmse/${registro.id}" class="btn btn-soft btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" 
                 class="w-5 h-5" 
                 viewBox="0 0 512 512" 
@@ -84,24 +86,58 @@
       </table>
     </div>
     <!-- modal para cada item -->
-    <dialog
-      v-for="(registro, id) in dados" 
-      :id="`modal-${id}`"
-      :key="`modal-${id}`"
-      class="modal"
-    >
-      <div class="modal-box">
-        <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">X</button>
-        </form>
-        <h3 class="font-bold text-lg mb-2">Detalhes do Registro</h3>
-        <p><strong>Nome:</strong> {{ registro.nome }}</p>
-        <p><strong>Sexo:</strong> {{ registro.sexo }}</p>
-        <p><strong>Início MSE:</strong> {{ registro.inicio_mse }}</p>
-        <p><strong>Fim MSE:</strong> {{ registro.fim_mse }}</p>
-        <p><strong>Ato Infracional:</strong> {{ registro.ato_infracional }}</p>
-      </div>
-    </dialog>
+<dialog
+  v-for="(registro, id) in dados" 
+  :id="`modal-${id}`"
+  :key="`modal-${id}`"
+  class="modal"
+>
+  <div class="modal-box text-left">
+    <form method="dialog">
+      <button 
+  class="btn btn-soft btn-primary btn-sm btn-square absolute right-2 top-2">
+  <svg xmlns="http://www.w3.org/2000/svg" 
+      class="w-4 h-4" 
+      viewBox="0 0 384 512" 
+      fill="currentColor">
+    <path d="M342.6 150.6c12.5-12.5 12.5-32.8 
+             0-45.3s-32.8-12.5-45.3 0L192 210.7 
+             86.6 105.4c-12.5-12.5-32.8-12.5-45.3 
+             0s-12.5 32.8 0 45.3L146.7 256 
+             41.4 361.4c-12.5 12.5-12.5 32.8 
+             0 45.3s32.8 12.5 45.3 0L192 301.3 
+             297.4 406.6c12.5 12.5 32.8 12.5 
+             45.3 0s12.5-32.8 0-45.3L237.3 256 
+             342.6 150.6z"/>
+  </svg>
+</button>
+
+    </form>
+
+    <h3 class="font-bold text-lg mb-2">Detalhes da MSE</h3>
+
+    <p><strong>ID:</strong> {{ registro.id }}</p>
+    <p><strong>Processo:</strong> {{ registro.processo_num }}</p>
+    <p><strong>Ato Infracional:</strong> {{ registro.ato_infracional }}</p>
+    <p><strong>Tipo de MSE:</strong> 
+      {{ registro.tipo_MSE == 0 ? 'Liberdade Assistida (LA)' : 
+         registro.tipo_MSE == 1 ? 'Prestação de Serviços à Comunidade (PSC)' : 
+         'LA com PSC' }}
+    </p>
+    <p><strong>ID Adolescente:</strong> {{ registro.idAdolescente }}</p>
+    <p><strong>ID Orientador:</strong> {{ registro.idOrientador }}</p>
+    <p><strong>Data de Início:</strong> {{ registro.data_inicio }}</p>
+    <p><strong>Data de Fim:</strong> {{ registro.data_fim }}</p>
+    <p><strong>Tipo de Finalização:</strong> 
+      {{ registro.tipo_finalizacao || 'Não finalizada' }}
+    </p>
+    <p><strong>Tipo de Interrupção:</strong> 
+      {{ registro.tipo_interrupcao || 'Não se aplica' }}
+    </p>
+    <p><strong>Número da Caixa Baixa:</strong> {{ registro.num_caixa_baixa }}</p>
+  </div>
+</dialog>
+
   </div>
 </template>
 
@@ -116,12 +152,16 @@ onMounted(() => {
   dados.value = teste //ao carregar a pagina preenche os dados com o JSON
 })
 
-
-
-
 //abre a visualização 
 function abrirModal(id) {
   document.getElementById(`modal-${id}`).showModal()
+}
+
+const emit = defineEmits(['editar-mse'])
+
+// Exemplo de função chamada no botão editar
+function onEditar(id) {
+  emit('editar-mse', id)
 }
 </script>
 
