@@ -9,7 +9,7 @@
       />
       <a 
         href="#/" 
-        class="btn btn-ghost normal-case text-2xl font-bold text-primary"
+        class="btn btn-link link-hover text-2xl font-bold text-primary"
       >
         BDedica
       </a>
@@ -28,7 +28,7 @@
     <div>
       <button 
         class="btn btn-soft btn-primary gap-1"
-        @click="isLogado = !isLogado"
+        @click="fazerLoginLogout"
       >
         <!-- Ícone -->
         <svg xmlns="http://www.w3.org/2000/svg" 
@@ -50,7 +50,19 @@ export default {
   name: 'Navbarteste',
   data() {
     return {
-      isLogado: false, // Simulação de login
+      isLogado: false, //simulação de login
+    }
+  },
+  methods: {
+    fazerLoginLogout() {
+      if (this.isLogado) {
+        //faz logout e redireciona para "/"
+        this.isLogado = false;
+        window.location.hash = '#/';
+      } else {
+        //faz login (simulado)
+        this.isLogado = true;
+      }
     }
   }
 }
