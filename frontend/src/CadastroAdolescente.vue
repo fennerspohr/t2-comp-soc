@@ -29,6 +29,9 @@
       <label class="label">Data de Nascimento</label>
       <input type="date" class="input" v-model="form.dataNascimento" required />
 
+      <label class="label">Nome da Mãe</label>
+      <input type="text" class="input" v-model="form.nome_mae" required />
+
       <label class="label">Tem CT?</label>
       <input
         type="checkbox"
@@ -64,6 +67,7 @@ const form = reactive({
   endereco: '',
   bairro: '',
   dataNascimento: '',
+  nome_mae: '',
   temCT: false,
   nomeCT: ''
 })

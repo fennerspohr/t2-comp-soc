@@ -20,11 +20,11 @@
         <option value="2">LA com PSC</option>
       </select>
 
-      <label class="label">ID Otientador</label>
+      <label class="label">ID Orientador</label>
       <input type="text" class="input" v-model="form.idOrientador" required />
 
       <label class="label">Data de Inicio</label>
-      <input type="text" class="input" v-model="form.data_inicio" required />
+      <input type="date" class="input" v-model="form.data_inicio" required />
 
       <label class="label">Data de Finalização</label>
       <input type="date" class="input" v-model="form.data_fim" required />
