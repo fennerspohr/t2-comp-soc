@@ -1,5 +1,6 @@
 from django.db import models
-from model_utils.models import TimeStampedModel #TimeStampedModel = os objetos sao criados automaticamente com colunas de data de criacao e edicaoSS
+from enum import Enum
+# from model_utils.models import TimeStampedModel #TimeStampedModel = os objetos sao criados automaticamente com colunas de data de criacao e edicaoSS
 
 class Orientador(models.Model):
     nome = models.CharField(max_length=100)
@@ -7,14 +8,13 @@ class Orientador(models.Model):
 class AtoInfracional(models.Model):
     nome = models.CharField(max_length=100)
 
+
+class Sexo(Enum):
+    MASCULINO="Masculino"
+    FEMININO = "Feminino"
+    OUTRO = "Outro"
+
 class Adolescente(models.Model):
-
-    SEXO_CHOICES = (
-        (MASCULINO, "Masculino"),
-        (FEMININO, "Feminino"),
-        (OUTRO, "Outro")
-    )
-
     cpf = models.CharField(max_length=11)
     nome = models.CharField(max_length=100)
     nome_social = models.CharField(max_length=100, blank=True)
@@ -24,7 +24,7 @@ class Adolescente(models.Model):
     nome_mae = models.CharField(max_length=100, blank=True)
     tem_CT = models.BooleanField()
     nome_CT = models.CharField(max_length=100, blank=True)
-    sexo = models.IntegerFIeld(choices=SEXO_CHOICES)
+    sexo = models.IntegerField(choices=[(sexo.value, sexo.name) for sexo in Sexo])
 
     def save_API(dados):
         adolescente = Adolescente(cpf = dados['cpf'], nome = dados['cpf'], nome_social=dados['nome_social'],
@@ -35,44 +35,41 @@ class Adolescente(models.Model):
         contato = ContatoAdolescente(telefone=dados['telefone'], id_adolescente=adolescente)
         contato.save()
 
-class ContatoAdolescente(TimeStampedModel):
+class ContatoAdolescente(models.Model):
     telefone = models.CharField(max_length=15)
     id_adolescente = models.ForeignKey(Adolescente, related_name="contato", on_delete=models.CASCADE)
 
-class MSE(TimeStampedModel):
+class TipoMSE(Enum):
+    LA ="Liberdade Assistida"
+    PSC="Prestação de Serviços à Comunidade"
+    LA_PSC="LA com PSC"
 
-    TIPOMSE_CHOICES = (
-        (LA, "Liberdade Assistida"),
-        (PSC, "Prestação de Serviços à Comunidade"),
-        (LA_PSC, "LA com PSC")
-    )
-        
-    TIPOFINALIZACAO_CHOICES = (
-        (CONCLUIDA, "Concluída"),
-        (INTERROMPIDA, "Interrompida"),
-        (TRANSFERIDA, "Transferida"),
-        (REGREDIDA, "Regredida")
-    )
+class TipoFinalizacao(Enum):
+    CONCLUIDA="Concluída"
+    INTERROMPIDA="Interrompida"
+    TRANSFERIDA="Transferida"
+    REGREDIDA="Regredida"
 
-    TIPOINTERRUPCAO_CHOICES = (
-        (CASE, "Case"),
-        (PENITENCIARIA, "PRSM ou outra penitenciária"),
-        (DESISTENCIA, "Desistência"),
-        (EXTINTA, "Extinta pelo Judiciário (prescrição)"),
-        (IDADE, "Idade"),
-        (REVOGADA, "Revogada (não cumpre)")
-    )
+class TipoInterrupcao(Enum):
+    CASE="Case"
+    PENITENCIARIA="PRSM ou outra penitenciária"
+    DESISTENCIA="Desistência"
+    EXTINTA= "Extinta pelo Judiciário (prescrição)"
+    IDADE="Idade"
+    REVOGADA="Revogada (não cumpre)"
 
+class MSE(models.Model):
+  
     processo_num = models.CharField(max_length=15)
-    infracao = models.ForeignKey(AtoInfracional)
-    tipo_mse = models.IntegerField(choices=TIPOMSE_CHOICES)
-    id_adolescente = models.ForeignKey(Adolescente)
-    id_orientador = models.ForeignKey(Orientador)
+    infracao = models.ForeignKey(AtoInfracional, on_delete=models.RESTRICT)
+    tipo_mse = models.IntegerField(choices=[(tipo.value, tipo.name) for tipo in TipoMSE])
+    id_adolescente = models.ForeignKey(Adolescente, on_delete=models.RESTRICT)
+    id_orientador = models.ForeignKey(Orientador,on_delete=models.RESTRICT)
     data_inicio = models.DateField()
     data_fim = models.DateField()
     concluida = models.BooleanField()
-    tipo_finalizacao = models.IntegerField(choices=TIPOFINALIZACAO_CHOICES, null=True)
-    tipo_interrupcao = models.IntegerField(choices=TIPOINTERRUPCAO_CHOICES, null=True)
+    tipo_finalizacao = models.IntegerField(choices=[(tipo.value, tipo.name) for tipo in TipoFinalizacao], null=True)
+    tipo_interrupcao = models.IntegerField(choices=[(tipo.value, tipo.name) for tipo in TipoInterrupcao], null=True)
     caixa_baixa_num = models.IntegerField()
 
     def save_API(dados):
