@@ -4,24 +4,27 @@ from .models import Adolescente, ContatoAdolescente, MSE, AtoInfracional, Orient
 class OrientadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orientador
-        fields = all
+        fields = "__all__"
 
 class AtoInfracionalSerializer(serializers.ModelSerializer):
     class Meta:
         model = AtoInfracional
-        fields = all
+        fields = "__all__"
 
-class AdolescenteSerializer(serializers.ModelSerializer):
-    sexo_str = serializers.CharField(source='get_sexo_display')
-    class Meta:
-        model = Adolescente
-        fields = ['id', 'cpf', 'nome', 'nome_social', 'endereco', 'bairro', 'data_nasc',
-                  'nome_mae', 'tem_CT', 'nome_CT', 'sexo', 'sexo_str']
-        
 class ContatoAdolescenteSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContatoAdolescente
-        fields = all
+        fields = "__all__"
+
+class AdolescenteSerializer(serializers.ModelSerializer):
+    sexo_str = serializers.CharField(source='get_sexo_display')
+    contatos = ContatoAdolescenteSerializer(many=True, source="contato")
+    class Meta:
+        model = Adolescente
+        fields = ['id', 'cpf', 'nome', 'nome_social', 'endereco', 'bairro', 'data_nasc',
+                  'nome_mae', 'tem_CT', 'nome_CT', 'sexo', 'sexo_str', 'contatos']
+        
+
 
 class MSESerializer(serializers.ModelSerializer):
     tipo_mse_str = serializers.CharField(source='get_tipo_mse_display')
@@ -32,4 +35,4 @@ class MSESerializer(serializers.ModelSerializer):
     infracao = AtoInfracionalSerializer()
     class Meta:
         model = MSE
-        fields = (all, 'tipo_mse_str', 'tipo_finalizacao_str', 'tipo_interrupcao_str')
+        fields = "__all__"

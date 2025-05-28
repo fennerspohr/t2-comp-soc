@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import MSE, Adolescente, Orientador, AtoInfracional
-from ..bdedicaapp.serializers import MSESerializer, AdolescenteSerializer, OrientadorSerializer, AtoInfracionalSerializer
+from .serializers import MSESerializer, AdolescenteSerializer, OrientadorSerializer, AtoInfracionalSerializer
 
 class MSEAPIView(APIView):
     def get(self, request, *args, **kwargs):

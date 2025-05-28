@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from bdedicaapp.views import MSEAPIView, AdolescenteAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/mse/', MSEAPIView.as_view()),
+    path('api/adolescente/', AdolescenteAPIView.as_view())
 ]
