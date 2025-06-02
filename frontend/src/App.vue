@@ -8,6 +8,7 @@ import telaLogin from './telaLogin.vue'
 import CadastroAdolescente from './CadastroAdolescente.vue'
 import listaAdolescentes from './lista-adolescentes.vue'
 import cadastromse from './cadastromse.vue'
+import editarmse from './editarmse.vue'
 
 
 const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
@@ -17,6 +18,7 @@ const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
   '/listamse': listamse,
   '/lista-adolescentes': listaAdolescentes, 
   '/about/cadastromse': cadastromse,
+  '/editarmse/:id': editarmse,  //rota pra edição com o id
 }
 
 const currentPath = ref(window.location.hash) //pega o path atual, que eh o que fica depois da # na url (antes de clicar nos botoes nao tem # nenhuma pq eh a url inicial)
@@ -25,9 +27,23 @@ window.addEventListener('hashchange', () => { //fica assistindo a # da url e qua
   currentPath.value = window.location.hash
 })
 
-const currentView = computed(() => { //altear o currentView
-  return routes[currentPath.value.slice(1) || '/'] //seleciona a rota de acordo com a string do currentPath
+const currentView = computed(() => {
+  const path = currentPath.value.slice(1) || '/'
+
+  //verifica se existe uma rota exata
+  if (routes[path]) {
+    return routes[path]
+  }
+
+  //verifica se eh uma rota dinamica
+  //se começar com editarmse retorna o componente de id 
+  if (path.startsWith('/editarmse/')) {
+    return routes['/editarmse/:id']
+  }
+
+  return null
 })
+
 
 
 </script>
