@@ -34,13 +34,9 @@
         <!-- Cabeçalho -->
         <thead>
           <tr>
-            <th>ID</th>
             <th>CPF</th>
             <th>Nome</th>
-            <th>Nome Social</th>
             <th>Sexo</th>
-            <th>Endereço</th>
-            <th>Bairro</th>
             <th>Data de Nascimento</th>
             <th>CT</th>
           </tr>
@@ -48,15 +44,11 @@
         <!-- Corpo da Tabela -->
         <tbody>
           <tr v-for="(registro, id) in dados" :key="id"> <!--pra cada item de dados cria uma tabela usando registro como variavel e id como posição do item-->
-            <td>{{ registro.id}}</td>
             <td>{{ registro.cpf}}</td>
             <td>{{ registro.nome }}</td>
-            <td>{{ registro.nome_social }}</td>
-            <td>{{ registro.sexo}}</td>
-            <td>{{ registro.endereco }}</td>
-            <td>{{ registro.bairro }}</td>
+            <td>{{ registro.sexo == 0 ? 'Masculino' : registro.sexo == 1 ? 'Feminino' : 'Outro' }}</td> 
             <td>{{ registro.data_nasc }}</td>
-            <td>{{ registro.tem_ct ? registro.nome_ct: 'Não possui' }}</td>
+            <td>{{ registro.tem_ct ? registro.nome_ct : 'Não possui' }}</td>
             
             <!--modal de visualização-->
             <td>
@@ -74,7 +66,7 @@
 
             <!--botão de editar-->
             <td>
-          <a href="#/about/editarmse/${registro.id}" class="btn btn-soft btn-primary">
+          <a :href="`#/editar-adolescente/${registro.id}`" class="btn btn-soft btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" 
                 class="w-5 h-5" 
                 viewBox="0 0 512 512" 
@@ -94,14 +86,21 @@
       :key="`modal-${id}`"
       class="modal"
     >
-      <div class="modal-box">
+      <div class="modal-box text-left">
         <form method="dialog">
           <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">X</button>
         </form>
         <h3 class="font-bold text-lg mb-2">Detalhes do Registro</h3>
+        <p><strong>Id:</strong> {{ registro.id }}</p>
+        <p><strong>CPF:</strong> {{ registro.cpf }}</p>
         <p><strong>Nome:</strong> {{ registro.nome }}</p>
-        <p><strong>Sexo:</strong> {{ registro.sexo }}</p>
+        <p><strong>Nome Social:</strong> {{ registro.nome_social }}</p>
+        <p><strong>Sexo:</strong> {{ registro.sexo == 0 ? 'Masculino' : registro.sexo == 1 ? 'Feminino' : 'Outro' }}</p>
         <p><strong>Data de Nascimento:</strong> {{ registro.data_nasc }}</p>
+        <p><strong>Endereço:</strong> {{ registro.endereco }}</p>
+        <p><strong>Bairro:</strong> {{ registro.bairro }}</p>
+        <p><strong>Nome da Mãe:</strong> {{ registro.nome_mae }}</p>
+  
       </div>
     </dialog>
   </div>
@@ -117,9 +116,6 @@ const filtro = ref('') //filtro da busca
 onMounted(() => {
   dados.value = teste //ao carregar a pagina preenche os dados com o JSON
 })
-
-
-
 
 //abre a visualização 
 function abrirModal(id) {

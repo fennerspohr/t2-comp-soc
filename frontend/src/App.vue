@@ -9,6 +9,7 @@ import CadastroAdolescente from './CadastroAdolescente.vue'
 import listaAdolescentes from './lista-adolescentes.vue'
 import cadastromse from './cadastromse.vue'
 import editarmse from './editarmse.vue'
+import editarAdolescente from './editar-adolescente.vue'
 import home from './home.vue'
 
 
@@ -20,6 +21,7 @@ const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
   '/lista-adolescentes': listaAdolescentes, 
   '/about/cadastromse': cadastromse,
   '/editarmse/:id': editarmse,  //rota pra edição com o id
+  '/editar-adolescente/:id': editarAdolescente,
   '/home': home,
 }
 
@@ -41,6 +43,11 @@ const currentView = computed(() => {
   //se começar com editarmse retorna o componente de id 
   if (path.startsWith('/editarmse/')) {
     return routes['/editarmse/:id']
+  }
+
+  //se começar com editar-adolescente retorna o componente de id
+  if (path.startsWith('/editar-adolescente/')) {
+    return routes['/editar-adolescente/:id']
   }
 
   return null

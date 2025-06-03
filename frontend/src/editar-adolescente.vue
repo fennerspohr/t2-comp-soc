@@ -47,35 +47,8 @@
         :disabled="!form.tem_CT"
         :required="form.tem_CT"
       />
-
-      <label class="label mt-2">Contatos</label>
-      <div class="flex gap-2 mb-2">
-        <input
-          type="text"
-          class="input flex-1"
-          v-model="novoContato"
-          placeholder="Digite um contato"
-        />
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="adicionarContato"
-          :disabled="!novoContato.trim()"
-        >
-          +
-        </button>
-      </div>
-
-      <ul class="list-disc pl-5 mb-2">
-        <li v-for="(contato, index) in form.contatos" :key="index" class="flex justify-between items-center">
-          {{ contato }}
-          <button type="button" class="btn btn-xs btn-error" @click="removerContato(index)">Remover</button>
-        </li>
-      </ul>
-
-
       <div>
-      <button class="btn">Cadastrar</button>
+      <button class="btn">Salvar Alterações</button>
     </div>
     </fieldset>
     
@@ -83,7 +56,12 @@
 </template>
 
 <script setup>
-import { computed, reactive, watch, ref} from 'vue'
+import { computed, reactive, watch, onMounted } from 'vue'
+import dados from './teste-adolescente.json'
+
+//pegando id da URL manualmente
+const currentPath = window.location.hash
+const id = currentPath.split('/').pop()
 
 // Estado reativo do formulário
 const form = reactive({
@@ -96,8 +74,17 @@ const form = reactive({
   data_nasc: '',
   nome_mae: '',
   tem_CT: false,
-  nome_CT: '',
-  contatos:[]
+  nome_CT: ''
+})
+
+//busca os dados
+onMounted(() => {
+  const registro = dados.find((item) => String(item.id) === id)
+  if (registro) {
+    Object.assign(form, registro)
+  } else {
+    alert('Registro não encontrado.')
+  }
 })
 
 // funcao para cuidar do tem ct - se nao estiver marcado nao deixa preencher o nome e se desmarcar com ele preenchido apaga o nome
@@ -117,22 +104,8 @@ console.log('Sexo:', sexoAdolescente[form.sexo])
 
 function submitForm() {
   console.log('Dados enviados:', JSON.parse(JSON.stringify(form))) //apenas printa os dados que ele pegou do form no console
-  alert('Adolescente cadastrado com sucesso!')
+  alert('Adolescente atualizado com sucesso!')
 }
-
-const novoContato = ref('')
-
-function adicionarContato() {
-  if (novoContato.value.trim()) {
-    form.contatos.push(novoContato.value.trim())
-    novoContato.value = ''
-  }
-}
-
-function removerContato(index) {
-  form.contatos.splice(index, 1)
-}
-
 
 </script>
 
