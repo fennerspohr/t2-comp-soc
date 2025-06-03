@@ -1,38 +1,67 @@
 [
   {
     "id": 1,
-    "processo": "0001234-56.2024.8.01.0001",
-    "adolescente": "Gustavo",
-    "inicio": "2024-01-15",
-    "fim": "2024-07-15",
-    "tipo_mse": "PSC",
-    "concluida": false
+    "processo_num": "1234567-12.2022.8.12.3456",
+    "ato_infracional": "Tráfico",
+    "tipo_MSE": 0,
+    "idAdolescente": 10,
+    "idOrientador": 3,
+    "data_inicio": "2023-01-15",
+    "data_fim": "2023-07-15",
+    "tipo_finalizacao": "Finalizada",
+    "tipo_interrupcao": "",
+    "num_caixa_baixa": "CAIXA-001"
   },
   {
     "id": 2,
-    "processo": "0002234-56.2024.8.01.0001",
-    "adolescente": "Isadora",
-    "inicio": "2024-02-10",
-    "fim": "2024-08-10",
-    "tipo_mse": "LA",
-    "concluida": true
+    "processo_num": "2345678-34.2023.8.34.5678",
+    "ato_infracional": "Roubo",
+    "tipo_MSE": 1,
+    "idAdolescente": 12,
+    "idOrientador": 5,
+    "data_inicio": "2023-03-01",
+    "data_fim": "2023-09-01",
+    "tipo_finalizacao": "Interrompida",
+    "tipo_interrupcao": "Desistencia",
+    "num_caixa_baixa": "CAIXA-002"
   },
   {
     "id": 3,
-    "processo": "0003234-56.2024.8.01.0001",
-    "adolescente": "Luiza",
-    "inicio": "2024-03-20",
-    "fim": "2024-09-20",
-    "tipo_mse": "PSC",
-    "concluida": false
+    "processo_num": "3456789-56.2021.8.56.7890",
+    "ato_infracional": "Porte Ilegal de Arma",
+    "tipo_MSE": 2,
+    "idAdolescente": 15,
+    "idOrientador": 2,
+    "data_inicio": "2022-05-20",
+    "data_fim": "2022-11-20",
+    "tipo_finalizacao": "Transferida",
+    "tipo_interrupcao": "",
+    "num_caixa_baixa": "CAIXA-003"
   },
   {
     "id": 4,
-    "processo": "0004234-56.2024.8.01.0001",
-    "adolescente": "Nathalia",
-    "inicio": "2024-04-05",
-    "fim": "2024-10-05",
-    "tipo_mse": "LA",
-    "concluida": true
+    "processo_num": "4567890-78.2020.8.78.9012",
+    "ato_infracional": "Furto",
+    "tipo_MSE": 0,
+    "idAdolescente": 18,
+    "idOrientador": 4,
+    "data_inicio": "2020-08-10",
+    "data_fim": "2021-02-10",
+    "tipo_finalizacao": "Regredida",
+    "tipo_interrupcao": "Revogada por descumprimento",
+    "num_caixa_baixa": "CAIXA-004"
+  },
+  {
+    "id": 5,
+    "processo_num": "5678901-90.2024.8.90.1234",
+    "ato_infracional": "Tráfico",
+    "tipo_MSE": 1,
+    "idAdolescente": 21,
+    "idOrientador": 6,
+    "data_inicio": "2024-02-01",
+    "data_fim": "2024-08-01",
+    "tipo_finalizacao": "Interrompida",
+    "tipo_interrupcao": "Idade",
+    "num_caixa_baixa": "CAIXA-005"
   }
 ]
