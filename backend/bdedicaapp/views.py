@@ -16,6 +16,49 @@ class MSEAPIView(APIView):
         MSE.save_API(dados)
         return Response(status=status.HTTP_201_CREATED)
     
+class MSEFilterView(APIView):
+    def get(self, request, *args, **kwargs):
+        dados = {}
+        status = ''
+
+        if(request.GET.get('status')):
+            if request.GET.get('status').lower() == 'true':
+                status = True
+            elif request.GET.get('status').lower() == 'false':
+                status = False
+
+        if(request.GET.get('ano') and request.GET.get('status') and request.GET.get('busca')):
+            if(request.GET.get('busca').isnumeric()):
+                print("numero")
+                dados = MSE.objects.filter(data_inicio__year=request.GET.get('ano'), id_adolescente__cpf__contains=request.GET.get('busca'), concluida=status)
+            else:
+                print("oi")
+                dados = MSE.objects.filter(data_inicio__year=request.GET.get('ano'), id_adolescente__nome__contains=request.GET.get('busca'), concluida=status)
+        elif(request.GET.get('ano') and request.GET.get('status')):
+            dados = MSE.objects.filter(data_inicio__year=request.GET.get('ano'), concluida=status)
+        elif(request.GET.get('ano') and request.GET.get('busca')):
+            if(request.GET.get('busca').isnumeric()):
+                dados = MSE.objects.filter(data_inicio__year=request.GET.get('ano'), id_adolescente__cpf__contains=request.GET.get('busca'))
+            else:
+                dados = MSE.objects.filter(data_inicio__year=request.GET.get('ano'), id_adolescente__nome__contains=request.GET.get('busca'))
+        elif(request.GET.get('ano')):
+            dados = MSE.objects.filter(data_inicio__year=request.GET.get('ano'))
+        elif(request.GET.get('status') and request.GET.get('busca')):
+            if(request.GET.get('busca').isnumeric()):
+                dados = MSE.objects.filter(concluida=status, id_adolescente__cpf__contains=request.GET.get('busca'))
+            else:
+                dados = MSE.objects.filter(concluida=status, id_adolescente__nome__contains=request.GET.get('busca'))
+        elif(request.GET.get('status')):
+            dados = MSE.objects.filter(concluida=status)
+        elif(request.GET.get('busca')):
+            if(request.GET.get('busca').isnumeric()):
+                dados = MSE.objects.filter(id_adolescente__cpf__contains=request.GET.get('busca'))
+            else:
+                dados = MSE.objects.filter(id_adolescente__nome__contains=request.GET.get('busca'))
+        serializer = MSESerializer(dados, many=True)
+        print(dados)
+        return Response(serializer.data)
+    
 class AdolescenteAPIView(APIView):
     def get(self, request, *args, **kwargs):
         adolescente = Adolescente.objects.all()
@@ -25,6 +68,10 @@ class AdolescenteAPIView(APIView):
         dados = request.data
         Adolescente.save_API(dados)
         return Response(status=status.HTTP_201_CREATED)
+    
+class AdolescenteFiltroView(APIView):
+    def get(self, request, *args, **kwargs):
+        dados = {}
     
 class OrientadorAPIView(APIView):
     def get(self, request, *args, **kwargs):

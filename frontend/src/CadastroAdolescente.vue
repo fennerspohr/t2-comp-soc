@@ -75,15 +75,18 @@
 
 
       <div>
-      <button class="btn">Cadastrar</button>
+      <button class="btn" @click="salvar()">Cadastrar</button>
     </div>
     </fieldset>
     
   </form>
+  {{ form }}
 </template>
 
 <script setup>
-import { computed, reactive, watch, ref} from 'vue'
+import { computed, reactive, watch, ref, onMounted} from 'vue'
+import axios from 'axios'
+
 
 // Estado reativo do formulário
 const form = reactive({
@@ -134,6 +137,20 @@ function removerContato(index) {
 }
 
 
+function salvar(){
+  const apiUrl = 'http://127.0.0.1:8000/api/adolescente/'; // Replace with your API endpoint URL
+
+    axios.post(apiUrl,{
+      form //form de dados
+    })
+      .then((response) => {
+
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+}
 </script>
 
 <style>

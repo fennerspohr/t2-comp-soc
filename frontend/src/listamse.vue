@@ -145,13 +145,47 @@
 <script setup>
 import { ref, onMounted } from 'vue'  //acessa elementos e renderizar atualizando
 import teste from './teste.json'  //importa os dados do json
-
+import axios from 'axios'
 const dados = ref([]) //cria uma lista vazia
 const filtro = ref('') //filtro da busca
 
 onMounted(() => {
   dados.value = teste //ao carregar a pagina preenche os dados com o JSON
+
+  //aqui faz o get request inicial
+  //essa também é a url usada pra fazer post nas páginas de cadastro
+
+  // const apiData = 'http://127.0.0.1:8000/api/mse/'   
+  // axios.post(apiUrl)
+  //     .then((response) => {
+
+  //       console.log(response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  
 })
+
+// const apiFiltro = 'http://127.0.0.1:8000/api/mse/filtro'; // url de filtro do mse
+
+      //desse jeito funciona se tiver todos os filtros, só 1, só 2 etc
+      // recomendo fazer tb um botao de limpar os filtros, ai pode enviar um request aqui com os parametros todos em branco,
+      //ou enviar um get pra url ali em cima, que pega todos os dados sempre
+  //   axios.get(apiFiltro, {
+  //     params: {
+  //       ano: '', //aqui vao os valores dos filtros
+  //       busca: 'teste',
+  //       status: false
+  //     }
+  //   })
+  //     .then((response) => {
+
+  //       console.log(response.data)
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching data:', error);
+  //     });
 
 //abre a visualização 
 function abrirModal(id) {

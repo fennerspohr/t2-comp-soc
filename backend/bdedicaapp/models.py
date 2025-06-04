@@ -32,13 +32,15 @@ class Adolescente(models.Model):
     sexo = models.IntegerField(choices=SEXO_CHOICES, default=OUTRO)
 
     def save_API(dados):
-        adolescente = Adolescente(cpf = dados['cpf'], nome = dados['cpf'], nome_social=dados['nome_social'],
+        dados = dados['form']
+        adolescente = Adolescente(cpf = dados['cpf'], nome = dados['nome'], nome_social=dados['nome_social'],
                                   endereco= dados['endereco'], bairro=dados['bairro'], data_nasc=dados['data_nasc'],
                                   nome_mae=dados['nome_mae'], tem_CT=dados['tem_CT'], nome_CT=dados['nome_CT'], sexo=dados['sexo'])
         adolescente.save()
 
-        contato = ContatoAdolescente(telefone=dados['telefone'], id_adolescente=adolescente)
-        contato.save()
+        if(dados['contatos'].len() > 0):
+            contato = ContatoAdolescente(telefone=dados['telefone'], id_adolescente=adolescente)
+            contato.save()
 
 class ContatoAdolescente(models.Model):
     telefone = models.CharField(max_length=15)
