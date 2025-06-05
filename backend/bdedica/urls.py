@@ -20,7 +20,7 @@ from bdedicaapp.views import MSEAPIView, AdolescenteAPIView, AtoInfracionalAPIVi
 urlpatterns = [
     path('admin/', admin.site.urls), #site de adm do django
     path('api/atoinfracional/', AtoInfracionalAPIView.as_view()), #url pra dar get nos atos infracionais
-    path('api/mse/', MSEAPIView.as_view()), #url pra dar get na lista completa de mse e também post no cadastro
+    path('api/mse/', MSEAPIView.as_view()), #url pra dar get na lista completa de mse, pegar 1 mse e também post no cadastro
     path('api/mse/filtro', MSEFilterView.as_view()), #url pra dar get nas listas filtradas
-    path('api/adolescente/', AdolescenteAPIView.as_view()) #url pra dar get na lista completa de adolescentes e também post no cadastro
+    path('api/adolescente/', AdolescenteAPIView.as_view()) #url pra dar get na lista completa de adolescentes, pegar 1 adolescente e também post no cadastro
 ] 

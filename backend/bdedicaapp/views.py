@@ -8,7 +8,11 @@ from .serializers import MSESerializer, AdolescenteSerializer, OrientadorSeriali
 
 class MSEAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        mse = MSE.objects.all()
+        mse = {}
+        if(request.GET.get('id')):
+            mse = MSE.objects.get(id=request.GET.get('id'))
+        else:
+            mse = MSE.objects.all()
         serializer = MSESerializer(mse, many=True)
         return Response(serializer.data)
     def post(self, request, *args, **kwargs):
@@ -61,7 +65,11 @@ class MSEFilterView(APIView):
     
 class AdolescenteAPIView(APIView):
     def get(self, request, *args, **kwargs):
-        adolescente = Adolescente.objects.all()
+        adolescente = {}
+        if(request.GET.get('id')):
+            adolescente = Adolescente.objects.get(id=request.GET.get('id'))
+        else:
+            adolescente = Adolescente.objects.all()
         serializer = AdolescenteSerializer(adolescente, many=True)
         return Response(serializer.data)
     def post(self, request, *args, **kwargs):
