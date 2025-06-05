@@ -6,16 +6,29 @@
 
       <!--filtros-->
       <div class="flex flex-col gap-2 mr-10">
+
         <!-- barra de pesquisa -->
-        <label class="input w-64">
-          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </g>
-          </svg>
-          <input type="search" required placeholder="Pesquisar" />
-        </label>
+        <div class="flex items-center gap-2">
+
+          <!-- botão de limpar filtros -->
+<button class="btn btn-outline btn-error btn-sm h-8" @click="limparFiltros">
+  Limpar filtros
+</button>
+
+          <label class="input input-bordered input-primary w-64 h-8 flex items-center gap-2">
+            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input v-model="campoBusca" type="search" placeholder="Número do processo ou nome" />
+          </label>
+          <button class="btn btn-sm btn-primary h-8" @click="aplicarBusca">
+            Buscar
+          </button>
+        </div>
+
 
         <!-- linha com select + status -->
         <div class="flex items-center gap-2">
@@ -35,8 +48,7 @@
               v-model="statusSelecionado" />
             <input class="btn btn-sm btn-primary h-8" type="radio" name="status" aria-label="Finalizada"
               value="finalizada" v-model="statusSelecionado" />
-            <input class="btn btn-sm btn-primary h-8" type="reset" value="×"
-              @click="statusSelecionado = ''" />
+            <input class="btn btn-sm btn-primary h-8" type="reset" value="×" @click="statusSelecionado = ''" />
           </form>
         </div>
       </div>
@@ -151,6 +163,7 @@ const filtro = ref('') //filtro da busca
 const statusSelecionado = ref('') //mostrar os status filtados
 const anoSelecionado = ref('')  //mostrar os anos selecionados
 const anosDisponiveis = ref([]) //mostrar na barra de seleção só anos cadastrados
+const campoBusca = ref('')
 
 onMounted(() => {
   dados.value = teste //ao carregar a pagina preenche os dados com o JSON
@@ -202,11 +215,23 @@ function abrirModal(id) {
   document.getElementById(`modal-${id}`).showModal()
 }
 
+function aplicarBusca() {
+  filtro.value = campoBusca.value.trim()
+}
+
+function limparFiltros() {
+  campoBusca.value = ''
+  filtro.value = ''
+  anoSelecionado.value = ''
+  statusSelecionado.value = ''
+}
+
 
 //com o json ainda 
 const dadosFiltrados = computed(() => {
   return dados.value.filter(registro => {
     const textoBusca = filtro.value.toLowerCase()
+
     const buscaOk =
       registro.processo_num?.toString().toLowerCase().includes(textoBusca) ||
       registro.ato_infracional?.toLowerCase().includes(textoBusca) ||
