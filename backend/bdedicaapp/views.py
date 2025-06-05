@@ -80,6 +80,28 @@ class AdolescenteAPIView(APIView):
 class AdolescenteFiltroView(APIView):
     def get(self, request, *args, **kwargs):
         dados = {}
+
+        busca = request.GET.get('busca')
+        sexo = request.GET.get('sexo')
+
+        if (busca and sexo):
+            if(busca.isnumeric()):
+                dados = Adolescente.objects.filter(cpf__contains=request.GET.get('busca'), sexo__iexact=sexo)
+            else: 
+                dados = Adolescente.objects.filter(nome__contains=request.GET.get('busca'), sexo__iexact=sexo)
+        elif busca:
+            if(busca.isnumeric()):
+                dados = Adolescente.objects.filter(cpf__contains=request.GET.get('busca'))
+            else: 
+                dados = Adolescente.objects.filter(nome__contains=request.GET.get('busca'))
+        elif sexo:
+            dados = Adolescente.objects.filter(sexo__iexact=sexo)
+        else:
+            dados = Adolescente.objects.all()
+        serializer = AdolescenteSerializer(dados, many=True)
+        print(dados)
+        return Response(serializer.data)
+
     
 class OrientadorAPIView(APIView):
     def get(self, request, *args, **kwargs):
