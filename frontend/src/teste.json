@@ -8,9 +8,10 @@
     "idOrientador": 3,
     "data_inicio": "2023-01-15",
     "data_fim": "2023-07-15",
-    "tipo_finalizacao": "Finalizada",
+    "tipo_finalizacao": "CONCLUIDA",
     "tipo_interrupcao": "",
-    "num_caixa_baixa": "CAIXA-001"
+    "num_caixa_baixa": "CAIXA-001",
+    "concluida": true
   },
   {
     "id": 2,
@@ -21,9 +22,10 @@
     "idOrientador": 5,
     "data_inicio": "2023-03-01",
     "data_fim": "2023-09-01",
-    "tipo_finalizacao": "Interrompida",
+    "tipo_finalizacao": "INTERROMPIDA",
     "tipo_interrupcao": "Desistencia",
-    "num_caixa_baixa": "CAIXA-002"
+    "num_caixa_baixa": "CAIXA-002",
+    "concluida": true
   },
   {
     "id": 3,
@@ -34,9 +36,10 @@
     "idOrientador": 2,
     "data_inicio": "2022-05-20",
     "data_fim": "2022-11-20",
-    "tipo_finalizacao": "Transferida",
+    "tipo_finalizacao": "",
     "tipo_interrupcao": "",
-    "num_caixa_baixa": "CAIXA-003"
+    "num_caixa_baixa": "CAIXA-003",
+    "concluida": false
   },
   {
     "id": 4,
@@ -47,9 +50,10 @@
     "idOrientador": 4,
     "data_inicio": "2020-08-10",
     "data_fim": "2021-02-10",
-    "tipo_finalizacao": "Regredida",
+    "tipo_finalizacao": "TRANSFERIDA",
     "tipo_interrupcao": "Revogada por descumprimento",
-    "num_caixa_baixa": "CAIXA-004"
+    "num_caixa_baixa": "CAIXA-004",
+    "concluida": true
   },
   {
     "id": 5,
@@ -60,8 +64,9 @@
     "idOrientador": 6,
     "data_inicio": "2024-02-01",
     "data_fim": "2024-08-01",
-    "tipo_finalizacao": "Interrompida",
-    "tipo_interrupcao": "Idade",
-    "num_caixa_baixa": "CAIXA-005"
+    "tipo_finalizacao": "",
+    "tipo_interrupcao": "",
+    "num_caixa_baixa": "CAIXA-005",
+    "concluida": false
   }
 ]
