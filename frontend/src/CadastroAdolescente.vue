@@ -4,13 +4,13 @@
       <legend class="fieldset-legend">Cadastro de Adolescente</legend>
 
       <label class="label mt-2">CPF</label>
-      <input type="text" class="input" v-model="form.cpf" required />
+      <input type="text" class="input" v-model="form.cpf" required maxlength=2/>
 
       <label class="label mt-2">Nome</label>
-      <input type="text" class="input" v-model="form.nome" required />
+      <input type="text" class="input" v-model="form.nome" required maxlength=100/>
 
       <label class="label mt-2">Nome Social</label>
-      <input type="text" class="input" v-model="form.nome_social" />
+      <input type="text" class="input" v-model="form.nome_social" maxlength=100 />
 
       <label class="label mt-2">Sexo</label>
       <select class="select" v-model.number="form.sexo" required>
@@ -21,16 +21,16 @@
       </select>
 
       <label class="label mt-2">Endereço</label>
-      <input type="text" class="input" v-model="form.endereco" required />
+      <input type="text" class="input" v-model="form.endereco" required maxlength=255/>
 
       <label class="label mt-2">Bairro</label>
-      <input type="text" class="input" v-model="form.bairro" required />
+      <input type="text" class="input" v-model="form.bairro" required maxlength=100 />
 
       <label class="label">Data de Nascimento</label>
       <input type="date" class="input" v-model="form.data_nasc" required />
 
       <label class="label mt-2">Nome da Mãe</label>
-      <input type="text" class="input" v-model="form.nome_mae" />
+      <input type="text" class="input" v-model="form.nome_mae" maxlength=100/>
 
       <label class="label mt-2">Tem CT?</label>
       <input
@@ -46,6 +46,7 @@
         v-model="form.nome_CT"
         :disabled="!form.tem_CT"
         :required="form.tem_CT"
+        maxlength=100
       />
 
       <label class="label mt-2">Contatos</label>
@@ -84,7 +85,7 @@
 </template>
 
 <script setup>
-import { computed, reactive, watch, ref, onMounted} from 'vue'
+import { computed, reactive, watch, ref} from 'vue'
 import axios from 'axios'
 
 
@@ -104,7 +105,7 @@ const form = reactive({
 })
 
 // funcao para cuidar do tem ct - se nao estiver marcado nao deixa preencher o nome e se desmarcar com ele preenchido apaga o nome
-watch(() => form.temCT, (checked) => {
+watch(() => form.tem_CT, (checked) => {
   if (!checked) {
     form.nome_CT = ''
   }
