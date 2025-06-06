@@ -11,9 +11,9 @@
         <div class="flex items-center gap-2">
 
           <!-- botão de limpar filtros -->
-<button class="btn btn-outline btn-error btn-sm h-8" @click="limparFiltros">
-  Limpar filtros
-</button>
+          <button class="btn btn-outline btn-error btn-sm h-8" @click="limparFiltros">
+            Limpar filtros
+          </button>
 
           <label class="input input-bordered input-primary w-64 h-8 flex items-center gap-2">
             <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -74,13 +74,19 @@
           <tr v-for="(registro, id) in dadosFiltrados" :key="id">
             <!--pra cada item de dados cria uma tabela usando registro como variavel e id como posição do item-->
             <td>{{ registro.processo_num }}</td>
-            <td>{{ registro.ato_infracional }}</td>
-            <td>{{ registro.tipo_MSE }}</td>
-            <td>{{ registro.idAdolescente }}</td>
-            <td>{{ registro.idOrientador }}</td>
+            <td>{{ registro.infracao.nome }}</td>
+            <td>{{ registro.tipo_mse == 0 ? 'LA' :
+              registro.tipo_mse == 1 ? 'PSC' :
+                'LA com PSC' }}</td>
+            <td>{{ registro.id_adolescente.nome }}</td>
+            <td>{{ registro.id_orientador.nome }}</td>
             <td>{{ registro.data_inicio }}</td>
             <td>{{ registro.data_fim }}</td>
-            <td>{{ registro.tipo_finalizacao }}</td>
+            <td>{{ registro.tipo_finalizacao == 0 ? 'Concluída' :
+              registro.tipo_finalizacao == 1 ? 'Interrompida' :
+                registro.tipo_finalizacao == 2 ? 'Transferida' :
+                  'Regredida' }}
+            </td>
 
             <!--modal de visualização-->
             <td>
@@ -131,23 +137,32 @@
 
         <p><strong>ID:</strong> {{ registro.id }}</p>
         <p><strong>Processo:</strong> {{ registro.processo_num }}</p>
-        <p><strong>Ato Infracional:</strong> {{ registro.ato_infracional }}</p>
+        <p><strong>Ato Infracional:</strong> {{ registro.infracao.nome }}</p>
         <p><strong>Tipo de MSE:</strong>
-          {{ registro.tipo_MSE == 0 ? 'Liberdade Assistida (LA)' :
-            registro.tipo_MSE == 1 ? 'Prestação de Serviços à Comunidade (PSC)' :
+          {{ registro.tipo_mse == 0 ? 'Liberdade Assistida (LA)' :
+            registro.tipo_mse == 1 ? 'Prestação de Serviços à Comunidade (PSC)' :
               'LA com PSC' }}
         </p>
-        <p><strong>ID Adolescente:</strong> {{ registro.idAdolescente }}</p>
-        <p><strong>ID Orientador:</strong> {{ registro.idOrientador }}</p>
+        <p><strong>ID Adolescente:</strong> {{ registro.id_adolescente.nome }}</p>
+        <p><strong>ID Orientador:</strong> {{ registro.id_orientador.nome }}</p>
         <p><strong>Data de Início:</strong> {{ registro.data_inicio }}</p>
         <p><strong>Data de Fim:</strong> {{ registro.data_fim }}</p>
         <p><strong>Tipo de Finalização:</strong>
-          {{ registro.tipo_finalizacao || 'Não finalizada' }}
+          {{ registro.tipo_finalizacao == 0 ? 'Concluída' :
+            registro.tipo_finalizacao == 1 ? 'Interrompida' :
+              registro.tipo_finalizacao == 2 ? 'Transferida' :
+                'Regredida' }}
         </p>
         <p><strong>Tipo de Interrupção:</strong>
-          {{ registro.tipo_interrupcao || 'Não se aplica' }}
+
+          {{ registro.tipo_interrupcao == 0 ? 'Case' :
+            registro.tipo_interrupcao == 1 ? 'PRSM ou outra penitenciária' :
+              registro.tipo_interrupcao == 2 ? 'Desistência' :
+                registro.tipo_interrupcao == 3 ? 'Extinta pelo Judiciário (prescrição)' :
+                  registro.tipo_interrupcao == 4 ? 'Idade' :
+                    'Revogada (não cumpre)' }}
         </p>
-        <p><strong>Número da Caixa Baixa:</strong> {{ registro.num_caixa_baixa }}</p>
+        <p><strong>Número da Caixa Baixa:</strong> {{ registro.caixa_baixa_num }}</p>
       </div>
     </dialog>
 
@@ -156,7 +171,6 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'  //acessa elementos e renderizar atualizando
-import teste from './teste.json'  //importa os dados do json
 import axios from 'axios'
 const dados = ref([]) //cria uma lista vazia
 const filtro = ref('') //filtro da busca
@@ -166,49 +180,21 @@ const anosDisponiveis = ref([]) //mostrar na barra de seleção só anos cadastr
 const campoBusca = ref('')
 
 onMounted(() => {
-  dados.value = teste //ao carregar a pagina preenche os dados com o JSON
+  axios.get('http://127.0.0.1:8000/api/mse/')
+    .then((response) => {
+      dados.value = response.data
 
-  //aqui faz o get request inicial
-  //essa também é a url usada pra fazer post nas páginas de cadastro
-
-  // const apiData = 'http://127.0.0.1:8000/api/mse/'   
-  // axios.post(apiUrl)
-  //     .then((response) => {
-
-  //       console.log(response.data)
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching data:', error);
-  //     });
-
-  const anos = new Set()
-  dados.value.forEach(reg => {
-    const ano = new Date(reg.data_inicio).getFullYear()
-    anos.add(ano)
-  })
-  anosDisponiveis.value = Array.from(anos).sort((a, b) => b - a)
-
+      const anos = new Set()
+      dados.value.forEach(reg => {
+        const ano = new Date(reg.data_inicio).getFullYear()
+        anos.add(ano)
+      })
+      anosDisponiveis.value = Array.from(anos).sort((a, b) => b - a)
+    })
+    .catch((error) => {
+      console.error('Erro ao buscar MSEs:', error)
+    })
 })
-
-// const apiFiltro = 'http://127.0.0.1:8000/api/mse/filtro'; // url de filtro do mse
-
-//desse jeito funciona se tiver todos os filtros, só 1, só 2 etc
-// recomendo fazer tb um botao de limpar os filtros, ai pode enviar um request aqui com os parametros todos em branco,
-//ou enviar um get pra url ali em cima, que pega todos os dados sempre
-//   axios.get(apiFiltro, {
-//     params: {
-//       ano: '', //aqui vao os valores dos filtros
-//       busca: 'teste',
-//       status: false
-//     }
-//   })
-//     .then((response) => {
-
-//       console.log(response.data)
-//     })
-//     .catch((error) => {
-//       console.error('Error fetching data:', error);
-//     });
 
 //abre a visualização 
 function abrirModal(id) {
