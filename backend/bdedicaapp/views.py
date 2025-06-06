@@ -20,6 +20,13 @@ class MSEAPIView(APIView):
         MSE.save_API(dados)
         return Response(status=status.HTTP_201_CREATED)
     
+class MSEUpdateView(APIView):
+    def post(self, request, *args, **kwargs):
+        dados = request.data
+        MSE.update_API(dados)
+        return Response(status=status.HTTP_200_OK)
+
+    
 class MSEFilterView(APIView):
     def get(self, request, *args, **kwargs):
         dados = {}

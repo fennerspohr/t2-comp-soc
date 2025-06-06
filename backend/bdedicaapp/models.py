@@ -38,9 +38,17 @@ class Adolescente(models.Model):
                                   nome_mae=dados['nome_mae'], tem_CT=dados['tem_CT'], nome_CT=dados['nome_CT'], sexo=dados['sexo'])
         adolescente.save()
 
-        if(dados['contatos'].len() > 0):
-            contato = ContatoAdolescente(telefone=dados['telefone'], id_adolescente=adolescente)
-            contato.save()
+        if(len(dados['contatos']) > 0):
+            for contato in dados['contatos']:
+                c = ContatoAdolescente(telefone=contato, id_adolescente=adolescente)
+                c.save()
+    def update_API(dados):
+        dados = dados['form']
+        Adolescente.objects.get(dados['id']).update(
+            cpf = dados['cpf'], nome = dados['nome'], nome_social=dados['nome_social'],
+            endereco= dados['endereco'], bairro=dados['bairro'], data_nasc=dados['data_nasc'],
+            nome_mae=dados['nome_mae'], tem_CT=dados['tem_CT'], nome_CT=dados['nome_CT'], sexo=dados['sexo']
+        )
 
 class ContatoAdolescente(models.Model):
     telefone = models.CharField(max_length=15)
@@ -109,3 +117,14 @@ class MSE(models.Model):
                   data_fim=dados['data_fim'], concluida=dados['concluida'], tipo_finalizacao=dados['tipo_finalizacao'],
                   tipo_interrupcao=dados['tipo_interrupcao'], caixa_baixa_num=dados['caixa_baixa_num'])
         mse.save()
+    def update_API(dados):
+        adolescente = Adolescente.objects.get(id=dados['id_adolescente'])
+        orientador = Orientador.objects.get(id=dados['id_orientador'])
+        infracao = AtoInfracional.objects.get(id=dados['infracao'])
+        MSE.objects.get(id=dados['id']).update(
+            processo_num=dados['processo_num'], infracao=infracao, tipo_mse=dados['tipo_mse'],
+            id_adolescente=adolescente, id_orientador=orientador, data_inicio=dados['data_inicio'],
+            data_fim=dados['data_fim'], concluida=dados['concluida'], tipo_finalizacao=dados['tipo_finalizacao'],
+            tipo_interrupcao=dados['tipo_interrupcao'], caixa_baixa_num=dados['caixa_baixa_num']
+        )
+

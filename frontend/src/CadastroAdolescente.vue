@@ -4,7 +4,7 @@
       <legend class="fieldset-legend">Cadastro de Adolescente</legend>
 
       <label class="label mt-2">CPF</label>
-      <input type="text" class="input" v-model="form.cpf" required maxlength=2/>
+      <input type="text" class="input" v-model="form.cpf" required maxlength=11/>
 
       <label class="label mt-2">Nome</label>
       <input type="text" class="input" v-model="form.nome" required maxlength=100/>
