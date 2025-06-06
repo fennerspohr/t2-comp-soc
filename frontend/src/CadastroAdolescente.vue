@@ -10,7 +10,7 @@
       <input type="text" class="input" v-model="form.nome" required />
 
       <label class="label mt-2">Nome Social</label>
-      <input type="text" class="input" v-model="form.nome_social" required />
+      <input type="text" class="input" v-model="form.nome_social" />
 
       <label class="label mt-2">Sexo</label>
       <select class="select" v-model.number="form.sexo" required>
@@ -30,7 +30,7 @@
       <input type="date" class="input" v-model="form.data_nasc" required />
 
       <label class="label mt-2">Nome da Mãe</label>
-      <input type="text" class="input" v-model="form.nome_mae" required />
+      <input type="text" class="input" v-model="form.nome_mae" />
 
       <label class="label mt-2">Tem CT?</label>
       <input
@@ -138,7 +138,7 @@ function removerContato(index) {
 
 
 function salvar(){
-  const apiUrl = 'http://127.0.0.1:8000/api/adolescente/'; // Replace with your API endpoint URL
+  const apiUrl = 'http://127.0.0.1:8000/api/adolescente/'; 
 
     axios.post(apiUrl,{
       form //form de dados

@@ -4,30 +4,49 @@
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-2xl font-bold">Adolescentes</h1>
 
-      <div class="flex gap-2">
-        <!-- barra de pesquisa-->
-        <label class="input">
+      <div class="flex flex-col gap-2 mr-10">
+
+        <!-- barra de pesquisa -->
+      <div class="flex items-center gap-2">
+
+         
+
+        <label class="input input-bordered input-primary w-64 h-8 flex items-center gap-2">
           <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g
-              stroke-linejoin="round"
-              stroke-linecap="round"
-              stroke-width="2.5"
-              fill="none"
-              stroke="currentColor"
-            >
+            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.3-4.3"></path>
             </g>
           </svg>
-          <input type="search" required placeholder="Pesquisar" />
+          <input v-model="campoBusca" type="search" placeholder="CPF ou nome" />
         </label>
-        <!--botão de adicionar-->
-        <a href="#/about/cadastro-adolescente" class="btn btn-soft btn-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 448 512" fill="currentColor">
-            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/>
-          </svg>
-        </a>
+          <button class="btn btn-sm btn-primary h-8" @click="aplicarBusca">
+            Buscar
+          </button>
       </div>
+
+
+        <!-- linha com select + status -->
+        <div class="flex items-center gap-2">
+          <!-- filtro sexo -->
+          <select class="select select-primary w-24 h-8 text-sm" v-model="sexoSelecionado">
+            <option disabled value="">Sexo</option>
+            <option > Masculino </option>
+            <option > Feminino </option>
+            <option > Outro </option>
+          </select>
+
+
+            <!-- botão de limpar filtros -->
+          <button class="btn btn-outline btn-error btn-sm h-8" @click="limparFiltros">
+            Limpar filtros
+          </button>
+        </div>
+
+      </div>
+
+
+
     </div>
     <div class="overflow-x-auto">
       <table class="table table-zebra w-full">
@@ -43,7 +62,7 @@
         </thead>
         <!-- Corpo da Tabela -->
         <tbody>
-          <tr v-for="(registro, id) in dados" :key="id"> <!--pra cada item de dados cria uma tabela usando registro como variavel e id como posição do item-->
+          <tr v-for="(registro, id) in dadosFiltrados" :key="id"> <!--pra cada item de dados cria uma tabela usando registro como variavel e id como posição do item-->
             <td>{{ registro.cpf}}</td>
             <td>{{ registro.nome }}</td>
             <td>{{ registro.sexo == 0 ? 'Masculino' : registro.sexo == 1 ? 'Feminino' : 'Outro' }}</td> 
@@ -107,20 +126,63 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'  //acessa elementos e renderizar atualizando
-import teste from './teste-adolescente.json'  //importa os dados do json
+import { ref, onMounted, computed } from 'vue'  //acessa elementos e renderizar atualizando
+import axios from 'axios'
 
 const dados = ref([]) //cria uma lista vazia
 const filtro = ref('') //filtro da busca
+const campoBusca = ref('')
+const sexoSelecionado = ref('')  //mostrar sexo selecionado
 
 onMounted(() => {
-  dados.value = teste //ao carregar a pagina preenche os dados com o JSON
+  //aqui faz o get request inicial
+  //essa também é a url usada pra fazer post nas páginas de cadastro
+
+   const apiUrl = 'http://127.0.0.1:8000/api/adolescente/'   
+   axios.get(apiUrl)
+    .then((response) => {
+        dados.value = response.data
+        console.log(response.data)
+     })
+    .catch((error) => {
+        console.error('Error fetching data:', error);
+    });
 })
 
 //abre a visualização 
 function abrirModal(id) {
   document.getElementById(`modal-${id}`).showModal()
 }
+
+function aplicarBusca() {
+  filtro.value = campoBusca.value.trim()
+}
+
+function limparFiltros() {
+  campoBusca.value = ''
+  filtro.value = ''
+  sexoSelecionado.value = ''
+}
+
+//com o json ainda 
+const dadosFiltrados = computed(() => {
+  return dados.value.filter(registro => {
+    const textoBusca = filtro.value.toLowerCase()
+
+    const buscaOk =
+      registro.cpf?.includes(textoBusca) ||
+      registro.nome?.toLowerCase().includes(textoBusca)
+
+    const sexoOk =
+        !sexoSelecionado.value ||
+        (registro.sexo === 0 && sexoSelecionado.value === "Masculino") ||
+        (registro.sexo === 1 && sexoSelecionado.value === "Feminino") ||
+        (registro.sexo === 2 && sexoSelecionado.value === "Outro")
+
+    return buscaOk && sexoOk
+  })
+})
+
 </script>
 
 <style scoped>
