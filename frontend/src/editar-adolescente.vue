@@ -1,7 +1,7 @@
 <template>
   <form class="form-cad-ad" @submit.prevent="salvar">
     <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-      <legend class="fieldset-legend">Cadastro de Adolescente</legend>
+      <legend class="fieldset-legend">Atualização de Adolescente</legend>
 
       <label class="label mt-2">CPF</label>
       <input type="text" class="input" v-model="form.cpf" required />
@@ -47,6 +47,31 @@
         :disabled="!form.tem_CT"
         :required="form.tem_CT"
       />
+
+      <label class="label mt-2">Contatos</label>
+      <div class="flex gap-2 mb-2">
+        <input
+          type="text"
+          class="input flex-1"
+          v-model="novoContato"
+          placeholder="Digite um novo contato"
+        />
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="adicionarContato"
+          :disabled="!novoContato.trim()"
+        >
+          +
+        </button>
+      </div>
+
+      <ul class="list-disc pl-5 mb-2">
+        <li v-for="(contato, index) in form.contatos" :key="index" class="flex justify-between items-center">
+          {{ contato.telefone }}
+          <button type="button" class="btn btn-xs btn-error" @click="removerContato(index)">Remover</button>
+        </li>
+      </ul>
       <div>
       <button class="btn" type="submit">Salvar Alterações</button>
     </div>
@@ -100,7 +125,7 @@ onMounted(() => {
       form.nome_mae = data.nome_mae
       form.tem_CT = data.tem_CT
       form.nome_CT = data.nome_CT
-      form.contatos = data.contatos || [] // <- importante para evitar undefined
+      form.contatos = data.contatos || [] 
     })
     .catch((error) => {
       console.error('Error fetching data:', error)
@@ -108,7 +133,7 @@ onMounted(() => {
 })
 
 // funcao para cuidar do tem ct - se nao estiver marcado nao deixa preencher o nome e se desmarcar com ele preenchido apaga o nome
-watch(() => form.temCT, (checked) => {
+watch(() => form.tem_CT, (checked) => {
   if (!checked) {
     form.nome_CT = ''
   }
@@ -120,12 +145,24 @@ const sexoAdolescente = {
   2: 'Outro'
 }
 
-//console.log('Sexo:', sexoAdolescente[form.sexo])
-
 function submitForm() {
   console.log('Dados enviados:', JSON.parse(JSON.stringify(form))) //apenas printa os dados que ele pegou do form no console
   alert('Adolescente atualizado com sucesso!')
 }
+
+const novoContato = ref('')
+
+function adicionarContato() {
+  if (novoContato.value.trim()) {
+    form.contatos.push(novoContato.value.trim())
+    novoContato.value = ''
+  }
+}
+
+function removerContato(index) {
+  form.contatos.splice(index, 1)
+}
+
 
 function salvar() {
   const apiUrlUpd = 'http://127.0.0.1:8000/api/adolescente/update'
