@@ -109,6 +109,11 @@ class AdolescenteFiltroView(APIView):
         print(dados)
         return Response(serializer.data)
 
+class AdolescenteUpdateView(APIView):
+    def post(self, request, *args, **kwargs):
+        dados = request.data
+        Adolescente.update_API(dados)
+        return Response(status=status.HTTP_200_OK)
     
 class OrientadorAPIView(APIView):
     def get(self, request, *args, **kwargs):

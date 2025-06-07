@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from bdedicaapp.views import MSEAPIView, AdolescenteAPIView, AtoInfracionalAPIView, MSEFilterView, MSEUpdateView, AdolescenteFiltroView
+from bdedicaapp.views import MSEAPIView, AdolescenteAPIView, AtoInfracionalAPIView, MSEFilterView, MSEUpdateView, AdolescenteFiltroView, AdolescenteUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls), #site de adm do django
@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/mse/update', MSEUpdateView.as_view()), #url pra fazer update dos mse
     path('api/adolescente/', AdolescenteAPIView.as_view()), #url pra dar get na lista completa de adolescentes, pegar 1 adolescente e também post no cadastro
     path('api/adolescente/filtro', AdolescenteFiltroView.as_view()), #url pra dar get nas listas filtradas
+    path('api/adolescente/update', AdolescenteUpdateView.as_view()), #url pra fazer update dos adolescentes
 ] 
