@@ -11,9 +11,11 @@ class MSEAPIView(APIView):
         mse = {}
         if(request.GET.get('id')):
             mse = MSE.objects.get(id=request.GET.get('id'))
+            serializer = MSESerializer(mse, many=False)
+
         else:
             mse = MSE.objects.all()
-        serializer = MSESerializer(mse, many=True)
+            serializer = MSESerializer(mse, many=True)
         return Response(serializer.data)
     def post(self, request, *args, **kwargs):
         dados = request.data
@@ -75,9 +77,10 @@ class AdolescenteAPIView(APIView):
         adolescente = {}
         if(request.GET.get('id')):
             adolescente = Adolescente.objects.get(id=request.GET.get('id'))
+            serializer = AdolescenteSerializer(adolescente, many=False)
         else:
             adolescente = Adolescente.objects.all()
-        serializer = AdolescenteSerializer(adolescente, many=True)
+            serializer = AdolescenteSerializer(adolescente, many=True)
         return Response(serializer.data)
     def post(self, request, *args, **kwargs):
         dados = request.data
