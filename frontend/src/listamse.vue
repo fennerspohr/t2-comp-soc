@@ -243,7 +243,6 @@ const dadosFiltrados = computed(() => {
   })
 })
 
-
 //função responsavel por aplicar a busca digitada
 function aplicarBusca() {
   filtro.value = campoBusca.value.trim()
