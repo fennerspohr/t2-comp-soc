@@ -44,11 +44,31 @@ class Adolescente(models.Model):
                 c.save()
     def update_API(dados):
         dados = dados['form']
-        Adolescente.objects.filter(id = dados['id']).update(
+        adolescente = Adolescente.objects.filter(id = dados['id'])
+        adolescente.update(
             cpf = dados['cpf'], nome = dados['nome'], nome_social=dados['nome_social'],
             endereco= dados['endereco'], bairro=dados['bairro'], data_nasc=dados['data_nasc'],
             nome_mae=dados['nome_mae'], tem_CT=dados['tem_CT'], nome_CT=dados['nome_CT'], sexo=dados['sexo']
         )
+        adolescente = adolescente[0]
+        previous_contatos = adolescente.contato.all()
+        new_contatos = dados['contatos']
+
+        delete = True
+        for contato in previous_contatos:
+            for c in new_contatos:
+                if('id' in c):
+                    if(c['id'] == contato.id):
+                        delete = False
+            if(delete):
+                contato.delete()
+
+        for contato in new_contatos:
+            print(contato)
+            if('id' not in contato):
+                c = ContatoAdolescente(telefone=contato, id_adolescente=adolescente)
+                c.save()
+                
 
 class ContatoAdolescente(models.Model):
     telefone = models.CharField(max_length=15)
