@@ -54,16 +54,16 @@
         </thead>
         <!-- Corpo da Tabela -->
         <tbody>
-          <tr v-for="(registro, id) in dadosFiltrados" :key="id"> <!--pra cada item de dados cria uma tabela usando registro como variavel e id como posição do item-->
+          <tr v-for="(registro, id) in dados" :key="id"> <!--pra cada item de dados cria uma tabela usando registro como variavel e id como posição do item-->
             <td>{{ registro.cpf}}</td>
             <td>{{ registro.nome }}</td>
             <td>{{ registro.sexo == 0 ? 'Masculino' : registro.sexo == 1 ? 'Feminino' : 'Outro' }}</td> 
             <td>{{ registro.data_nasc }}</td>
-            <td>{{ registro.tem_ct ? registro.nome_ct : 'Não possui' }}</td>
+            <td>{{ registro.tem_CT ? registro.nome_CT : 'Não possui' }}</td>
             
             <!--modal de visualização-->
             <td>
-          <button class="btn btn-soft btn-primary" @click="abrirModal(id)">
+          <button class="btn btn-soft btn-primary mr-2" @click="abrirModal(id)">
             <svg xmlns="http://www.w3.org/2000/svg" 
                 class="w-5 h-5" 
                 viewBox="0 0 576 512" 
@@ -72,10 +72,8 @@
             </svg>
           </button>
 
-            </td>
-
             <!--botão de editar-->
-            <td>
+            
           <a :href="`#/editar-adolescente/${registro.id}`" class="btn btn-soft btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" 
                 class="w-5 h-5" 
@@ -110,7 +108,9 @@
         <p><strong>Endereço:</strong> {{ registro.endereco }}</p>
         <p><strong>Bairro:</strong> {{ registro.bairro }}</p>
         <p><strong>Nome da Mãe:</strong> {{ registro.nome_mae }}</p>
-  
+        <p><strong>Nome CT:</strong> {{ registro.nome_CT }}</p>
+
+        
       </div>
     </dialog>
   </div>
@@ -124,6 +124,7 @@ const dados = ref([]) //cria uma lista vazia
 const filtro = ref('') //filtro da busca
 const campoBusca = ref('')
 const sexoSelecionado = ref('')  //mostrar sexo selecionado
+const apiFiltro = 'http://127.0.0.1:8000/api/adolescente/filtro'
 
 onMounted(() => {
   //aqui faz o get request inicial
@@ -146,6 +147,16 @@ function abrirModal(id) {
 
 function aplicarBusca() {
   filtro.value = campoBusca.value.trim()
+  /* const apiUrlFil = 'http://127.0.0.1:8000/api/adolescente/filtro'   
+   axios.get(apiUrlFil)
+    .then((response) => {
+        dados.value = response.data
+        console.log(response.data)
+     })
+    .catch((error) => {
+        console.error('Error fetching data:', error);
+    });*/
+
 }
 
 function limparFiltros() {
