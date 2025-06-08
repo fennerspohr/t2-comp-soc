@@ -173,7 +173,6 @@ const tipointerrupcaochoice = {
 
 console.log('Interrupção:', tipointerrupcaochoice[form.tipo_interrupcao])
 
-
 // aqui eu verifico se todos os campos obrigatórios estão preenchidos
 const formIsValid = computed(() => {
   return (
@@ -215,7 +214,6 @@ const dataValida = computed(() => {
 })
 
 const verifica = computed(() => formIsValid.value && dataValida.value)
-
 
 function salvar() {
 
