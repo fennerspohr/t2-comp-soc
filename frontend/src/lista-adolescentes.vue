@@ -22,14 +22,13 @@
             Buscar
           </button>
       </div>
-        <!-- linha com select de sexo -->
         <div class="flex items-center gap-2">
           <!-- filtro sexo -->
           <select class="select select-primary w-24 h-8 text-sm" v-model="sexoSelecionado">
             <option disabled value="">Sexo</option>
-            <option > Masculino </option>
-            <option > Feminino </option>
-            <option > Outro </option>
+            <option value="0"> Masculino </option>
+            <option value="1"> Feminino </option>
+            <option value="2"> Outro </option>
           </select>
             <!-- botão de limpar filtros -->
           <button class="btn btn-outline btn-error btn-sm h-8" @click="limparFiltros">
@@ -117,7 +116,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'  //acessa elementos e renderizar atualizando
+import { ref, onMounted } from 'vue'  //acessa elementos e renderizar atualizando
 import axios from 'axios'
 
 const dados = ref([]) //cria uma lista vazia
@@ -127,7 +126,7 @@ const sexoSelecionado = ref('')  //mostrar sexo selecionado
 const apiFiltro = 'http://127.0.0.1:8000/api/adolescente/filtro'
 
 onMounted(() => {
-  //aqui faz o get request inicial
+  //aqui faz o get request inicial para preencher a tabela com todos os dados
 
    const apiUrl = 'http://127.0.0.1:8000/api/adolescente/'   
    axios.get(apiUrl)
@@ -146,43 +145,31 @@ function abrirModal(id) {
 }
 
 function aplicarBusca() {
-  filtro.value = campoBusca.value.trim()
-  /* const apiUrlFil = 'http://127.0.0.1:8000/api/adolescente/filtro'   
-   axios.get(apiUrlFil)
+ // aqui faz um get com os parametros de busca (busca é o que foi digitado e sexo é a opção do select)
+   axios.get(apiFiltro, {
+    params: {
+      busca: campoBusca.value,
+      sexo: sexoSelecionado.value
+    }
+   })
     .then((response) => {
         dados.value = response.data
         console.log(response.data)
      })
     .catch((error) => {
         console.error('Error fetching data:', error);
-    });*/
+    });
 
 }
 
 function limparFiltros() {
+  // limpa os valores da busca e do select, chama a funcão de buscar novamente com parametros vazios
   campoBusca.value = ''
   filtro.value = ''
   sexoSelecionado.value = ''
+
+  aplicarBusca()
 }
-
-const dadosFiltrados = computed(() => {
-  return dados.value.filter(registro => {
-    const textoBusca = filtro.value.toLowerCase()
-
-    const buscaOk =
-      registro.cpf?.includes(textoBusca) ||
-      registro.nome?.toLowerCase().includes(textoBusca)
-
-    const sexoOk =
-        !sexoSelecionado.value ||
-        (registro.sexo === 0 && sexoSelecionado.value === "Masculino") ||
-        (registro.sexo === 1 && sexoSelecionado.value === "Feminino") ||
-        (registro.sexo === 2 && sexoSelecionado.value === "Outro")
-
-    return buscaOk && sexoOk
-  })
-})
-
 </script>
 
 <style scoped>

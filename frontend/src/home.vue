@@ -49,7 +49,7 @@ O BDedica resolve isso.
 
     <!-- Rodapé -->
     <div class="mt-10 text-sm text-center text-gray-400">
-      <p>Desenvolvido por Gustavo Pott, Isadora Spohr, Natalhia Zofoli, Luiza Manoelle dos Santos – UFSM, Sistemas de Informação – CT 2025</p>
+      <p>Desenvolvido por Gustavo Pott, Isadora Spohr, Nathália Zófoli, Luiza Manoelle dos Santos – UFSM, Sistemas de Informação – CT 2025</p>
     </div>
   </div>
 </template>
