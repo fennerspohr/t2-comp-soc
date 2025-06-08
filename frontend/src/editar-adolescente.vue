@@ -68,7 +68,7 @@
 
       <ul class="list-disc pl-5 mb-2">
         <li v-for="(contato, index) in form.contatos" :key="index" class="flex justify-between items-center">
-          {{ contato.telefone }}
+          {{ contato.telefone? contato.telefone : contato }}
           <button type="button" class="btn btn-xs btn-error" @click="removerContato(index)">Remover</button>
         </li>
       </ul>
