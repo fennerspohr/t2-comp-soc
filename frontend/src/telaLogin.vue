@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { isLogged } from './estadoLogin'
+
 export default {
   name: 'TelaLogin',
   data() {
@@ -44,7 +46,8 @@ export default {
   methods: {
     logar() {
       if (this.email === 'teste@gmail.com' && this.senha === 'teste') {
-        window.location.hash = '/listamse'
+        isLogged.value = true
+        window.location.hash = '/home'
       } else {
         alert('E-mail ou senha incorretos.')
       }

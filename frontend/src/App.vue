@@ -1,5 +1,4 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
 import Cadastro from './Cadastro.vue'
 import { ref, computed } from 'vue'
 import Navbarteste from './components/navbarteste.vue'
