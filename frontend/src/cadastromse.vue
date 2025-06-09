@@ -84,7 +84,7 @@
         <input type="text" class="input" v-model="form.caixa_baixa_num" required />
 
         <!-- botão que só funciona se tudo estiver preenchido -->
-        <button class="btn" :disabled="!verifica" @click="salvar()">Cadastrar</button>
+        <button class="btn" @click="salvar()">Cadastrar</button>
       </div>
     </fieldset>
 
@@ -190,7 +190,8 @@ const formIsValid = computed(() => {
     (form.concluida !== true || form.tipo_finalizacao) &&
 
     // se for interrompida, obrigar escolher motivo
-    (form.tipo_finalizacao !== 'interrompida' || form.tipo_interrupcao)
+    (form.tipo_finalizacao !== 1 || form.tipo_interrupcao !== null && form.tipo_interrupcao !== '')
+
   )
 })
 
