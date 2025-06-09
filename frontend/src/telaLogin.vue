@@ -33,7 +33,15 @@
 </template>
 
 <script>
-import { isLogged } from './estadoLogin'
+import { isLogged, nomeUsuario } from './estadoLogin'
+const conta1 = { 
+  email: 'orientadorjoao@gmail.com',
+  senha: 'joaoorientador'
+}
+const conta2 = {
+  email: 'orientadoramaria@gmail.com',
+  senha: 'mariaorientadora'
+}
 
 export default {
   name: 'TelaLogin',
@@ -45,9 +53,17 @@ export default {
   },
   methods: {
     logar() {
-      if (this.email === 'teste@gmail.com' && this.senha === 'teste') {
+      const teste = {
+        email: this.email,
+        senha: this.senha
+      }
+
+      if ((teste.email === conta1.email && teste.senha === conta1.senha) ||
+        (teste.email === conta2.email && teste.senha === conta2.senha)) 
+      {
         isLogged.value = true
         window.location.hash = '/home'
+        nomeUsuario.value = teste.email.split('@')[0]
       } else {
         alert('E-mail ou senha incorretos.')
       }

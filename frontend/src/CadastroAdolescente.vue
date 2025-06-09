@@ -74,14 +74,12 @@
         </li>
       </ul>
 
-
       <div>
       <button class="btn" @click="salvar()">Cadastrar</button>
     </div>
     </fieldset>
     
   </form>
-  {{ form }}
 </template>
 
 <script setup>

@@ -29,6 +29,7 @@
 
     <!-- Logout -->
     <div v-if="isLogged">
+      {{ nomeUsuario }}
       <button 
         class="btn btn-soft btn-primary gap-1"
         @click="fazerLogout"
@@ -40,7 +41,7 @@
 </template>
 
 <script setup>
-import { isLogged } from '../estadoLogin'
+import { isLogged, nomeUsuario } from '../estadoLogin'
 
 function fazerLogout() {
   isLogged.value = false

@@ -78,7 +78,7 @@
     </fieldset>
     
   </form>
-  {{ form }}
+
 </template>
 
 <script setup>

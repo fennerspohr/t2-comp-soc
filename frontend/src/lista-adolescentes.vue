@@ -101,15 +101,17 @@
         <p><strong>Id:</strong> {{ registro.id }}</p>
         <p><strong>CPF:</strong> {{ registro.cpf }}</p>
         <p><strong>Nome:</strong> {{ registro.nome }}</p>
-        <p><strong>Nome Social:</strong> {{ registro.nome_social }}</p>
+        <p v-if="registro.nome_social"><strong>Nome Social:</strong> {{ registro.nome_social }}</p>
         <p><strong>Sexo:</strong> {{ registro.sexo == 0 ? 'Masculino' : registro.sexo == 1 ? 'Feminino' : 'Outro' }}</p>
         <p><strong>Data de Nascimento:</strong> {{ registro.data_nasc }}</p>
         <p><strong>Endereço:</strong> {{ registro.endereco }}</p>
         <p><strong>Bairro:</strong> {{ registro.bairro }}</p>
-        <p><strong>Nome da Mãe:</strong> {{ registro.nome_mae }}</p>
-        <p><strong>Nome CT:</strong> {{ registro.nome_CT }}</p>
-
-        
+        <p v-if="registro.nome_mae"><strong>Nome da Mãe:</strong> {{ registro.nome_mae }}</p>
+        <p v-if="registro.tem_CT"><strong>Nome CT:</strong> {{ registro.nome_CT }}</p>
+        <p v-if="registro.contatos[0]"><strong>Contatos:</strong></p>
+        <li v-for="(contato, index) in registro.contatos" :key="index">
+          {{ contato.telefone }}
+        </li>
       </div>
     </dialog>
   </div>
