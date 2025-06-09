@@ -79,7 +79,7 @@
       <input type="text" class="input" v-model="form.caixa_baixa_num" required />
 
       <div class="mt-4">
-        <button class="btn" :disabled="!verifica" type="submit">Salvar Alterações</button>
+        <button class="btn" type="submit">Salvar Alterações</button>
       </div>
     </fieldset>
   </form>
