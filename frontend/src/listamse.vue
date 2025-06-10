@@ -143,7 +143,9 @@
         <p><strong>Data de Início:</strong> {{ registro.data_inicio }}</p>
         <p><strong>Data de Fim:</strong> {{ registro.data_fim }}</p>
         <p><strong>Tipo de Finalização:</strong>{{ formatarFinalizacao(registro.tipo_finalizacao) }}</p>
-        <p><strong>Tipo de Interrupção:</strong>{{ formatarInterrupcao(registro.tipo_interrupcao) }}</p>
+        <p v-if="registro.tipo_finalizacao === 1 && registro.tipo_interrupcao !== null">
+          <strong>Tipo de Interrupção:</strong> {{ formatarInterrupcao(registro.tipo_interrupcao) }}
+        </p>
         <p><strong>Número da Caixa Baixa:</strong> {{ registro.caixa_baixa_num }}</p>
       </div>
     </dialog>

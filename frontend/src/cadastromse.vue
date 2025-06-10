@@ -84,7 +84,7 @@
         <input type="text" class="input" v-model="form.caixa_baixa_num" required />
 
         <!-- botão que só funciona se tudo estiver preenchido -->
-        <button class="btn" @click="salvar()">Cadastrar</button>
+        <button class="btn" :disabled="!verifica" :class="{ 'opacity-50 cursor-not-allowed': !verifica }" @click="salvar()">Cadastrar</button>
       </div>
     </fieldset>
 
@@ -176,23 +176,23 @@ console.log('Interrupção:', tipointerrupcaochoice[form.tipo_interrupcao])
 const formIsValid = computed(() => {
   return (
     form.processo_num &&
-    form.infracao &&
-    form.id_adolescente &&
-    form.tipo_mse &&
-    form.id_orientador &&
+    form.infracao !== '' &&
+    form.id_adolescente !== '' &&
+    form.tipo_mse !== '' &&
+    form.id_orientador !== '' &&
     form.data_inicio &&
     form.data_fim &&
     form.caixa_baixa_num &&
     form.concluida !== '' &&
 
-    // se tiver finalizada, obrigar escolher tipo de finalização
-    (form.concluida !== true || form.tipo_finalizacao) &&
+    // se for finalizada, exige tipo de finalização
+    (form.concluida !== true || form.tipo_finalizacao !== '' && form.tipo_finalizacao !== null) &&
 
-    // se for interrompida, obrigar escolher motivo
-    (form.tipo_finalizacao !== 1 || form.tipo_interrupcao !== null && form.tipo_interrupcao !== '')
-
+    // se for interrompida, exige tipo de interrupção
+    (form.tipo_finalizacao !== 1 || (form.tipo_interrupcao !== '' && form.tipo_interrupcao !== null))
   )
 })
+
 
 watch(() => form.concluida, (newVal) => {
   if (newVal !== true) {
@@ -210,7 +210,8 @@ watch(() => form.tipo_finalizacao, (newVal) => {
 
 //garantia de que o fim não pode seja anterior ao inicio
 const dataValida = computed(() => {
-  return new Date(form.data_fim) >= new Date(form.data_inicio)
+  if (!form.data_inicio || !form.data_fim) return false;
+  return new Date(form.data_fim) >= new Date(form.data_inicio);
 })
 
 const verifica = computed(() => formIsValid.value && dataValida.value)
