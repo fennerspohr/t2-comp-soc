@@ -82,7 +82,8 @@
       <div>
         <label class="label mt-2">Caixa Baixa</label>
         <input type="text" class="input" v-model="form.caixa_baixa_num" required />
-
+</div>
+<div>
         <!-- botão que só funciona se tudo estiver preenchido -->
         <button class="btn" :disabled="!verifica" :class="{ 'opacity-50 cursor-not-allowed': !verifica }" @click="salvar()">Cadastrar</button>
       </div>
@@ -217,7 +218,6 @@ const dataValida = computed(() => {
 const verifica = computed(() => formIsValid.value && dataValida.value)
 
 function salvar() {
-
   form.tipo_mse = form.tipo_mse === '' ? null : Number(form.tipo_mse)
   form.tipo_finalizacao = form.tipo_finalizacao === '' ? null : Number(form.tipo_finalizacao)
   form.tipo_interrupcao = form.tipo_interrupcao === '' ? null : Number(form.tipo_interrupcao)

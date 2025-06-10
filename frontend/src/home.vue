@@ -1,4 +1,21 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
+const estatisticas = ref({
+  mse: 0,
+  adolescente: 0,
+  orientador: 0
+})
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/count')
+    estatisticas.value = response.data
+  } catch (error) {
+    console.error('Erro ao buscar estatísticas:', error)
+  }
+})
 </script>
 
 <template>
@@ -14,36 +31,36 @@
         </p>
 
         <div class="card w-150 h-40 bg-primary text-primary-content">
-  <div class="card-body">
-    <p>O CEDEDICA é uma ONG que presta um trabalho essencial à comunidade, acompanhando jovens em cumprimento de medidas como Liberdade Assistida e Prestação de Serviços à Comunidade. No entanto, até então, essas informações eram armazenadas manualmente em cadernos, com dados incompletos, difíceis de consultar e impossíveis de filtrar rapidamente.</p>
-  </div>
-</div>
+          <div class="card-body">
+            <p>O CEDEDICA é uma ONG que presta um trabalho essencial à comunidade, acompanhando jovens em cumprimento de medidas como Liberdade Assistida e Prestação de Serviços à Comunidade. No entanto, até então, essas informações eram armazenadas manualmente em cadernos, com dados incompletos, difíceis de consultar e impossíveis de filtrar rapidamente.</p>
+          </div>
+        </div>
       </div>
 
       <!-- Lado da imagem + estatísticas -->
       <div class="flex flex-col items-center">
-        <img class="w-full max-w-sm round " src="./assets/1089.png" alt="icone">
-        
-        <div class="stats shadow bg-base-100 w-full">
+        <img class="w-full max-w-sm round" src="./assets/1089.png" alt="icone">
+
+        <div class="stats shadow bg-base-100 w-full mt-4">
           <div class="stat">
             <div class="stat-title">Medidas Cadastradas</div>
-            <div class="stat-value">+100</div>
+            <div class="stat-value">{{ estatisticas.mse }}</div>
           </div>
           <div class="stat">
             <div class="stat-title">Adolescentes Ativos</div>
-            <div class="stat-value">25</div>
+            <div class="stat-value">{{ estatisticas.adolescente }}</div>
           </div>
           <div class="stat">
             <div class="stat-title">Orientadores Envolvidos</div>
-            <div class="stat-value">8</div>
+            <div class="stat-value">{{ estatisticas.orientador }}</div>
           </div>
         </div>
-<p class="text-lg mt-5 text-gray-600 dark:text-gray-400">
-Imagine tentar descobrir quantas meninas foram atendidas em 2023 ou quantas medidas foram iniciadas em abril — tudo isso exigia horas vasculhando folhas, anotando à mão, com risco de erro e perda de informações.
 
-O BDedica resolve isso.
+        <p class="text-lg mt-5 text-gray-600 dark:text-gray-400">
+          Imagine tentar descobrir quantas meninas foram atendidas em 2023 ou quantas medidas foram iniciadas em abril — tudo isso exigia horas vasculhando folhas, anotando à mão, com risco de erro e perda de informações.
+
+          O BDedica resolve isso.
         </p>
-        
       </div>
     </div>
 

@@ -83,7 +83,12 @@
             <td>{{ registro.id_orientador.nome }}</td>
             <td>{{ registro.data_inicio }}</td>
             <td>{{ registro.data_fim }}</td>
-            <td>{{ formatarFinalizacao(registro.tipo_finalizacao) }}</td>
+            <td>
+              <span :class="registro.concluida ? 'text-red-500 font-semibold' : 'text-green-600 font-semibold'">
+                {{ registro.concluida ? 'Finalizada' : 'Vigente' }}
+              </span>
+            </td>
+
 
 
             <!--modal de visualização-->
@@ -142,10 +147,22 @@
         <p><strong>ID Orientador:</strong> {{ registro.id_orientador.nome }}</p>
         <p><strong>Data de Início:</strong> {{ registro.data_inicio }}</p>
         <p><strong>Data de Fim:</strong> {{ registro.data_fim }}</p>
-        <p><strong>Tipo de Finalização:</strong>{{ formatarFinalizacao(registro.tipo_finalizacao) }}</p>
-        <p v-if="registro.tipo_finalizacao === 1 && registro.tipo_interrupcao !== null">
-          <strong>Tipo de Interrupção:</strong> {{ formatarInterrupcao(registro.tipo_interrupcao) }}
-        </p>
+        <!-- Situação e finalização só se concluída -->
+
+  <strong>Situação:</strong>
+
+              <span :class="registro.concluida ? 'text-red-500 font-semibold' : 'text-green-600 font-semibold'">
+                {{ registro.concluida ? 'Finalizada' : 'Vigente' }}
+              </span>
+
+<p v-if="registro.concluida && registro.tipo_finalizacao !== null">
+  <strong>Tipo de Finalização:</strong> {{ formatarFinalizacao(registro.tipo_finalizacao) }}
+</p>
+
+<!-- Tipo de interrupção só se finalizada E tipo_finalizacao = 1 -->
+<p v-if="registro.concluida && registro.tipo_finalizacao === 1 && registro.tipo_interrupcao !== null">
+  <strong>Tipo de Interrupção:</strong> {{ formatarInterrupcao(registro.tipo_interrupcao) }}
+</p>
         <p><strong>Número da Caixa Baixa:</strong> {{ registro.caixa_baixa_num }}</p>
       </div>
     </dialog>
@@ -198,11 +215,14 @@ function formatarTipoMse(tipo) {
 
 
 function formatarFinalizacao(tipo) {
+  if (tipo === null || tipo === undefined) return ''
   return tipo === 0 ? 'Concluída' :
-    tipo === 1 ? 'Interrompida' :
-      tipo === 2 ? 'Transferida' :
-        'Regredida'
+         tipo === 1 ? 'Interrompida' :
+         tipo === 2 ? 'Transferida' :
+         tipo === 3 ? 'Regredida' :
+         'Desconhecido'
 }
+
 
 
 function formatarInterrupcao(tipo) {
