@@ -115,7 +115,8 @@
       </table>
     </div>
     <!-- modal para cada item -->
-    <dialog v-for="(registro, id) in dados" :id="`modal-${id}`" :key="`modal-${id}`" class="modal">
+    <dialog v-for="(registro, id) in dadosFiltrados" :id="`modal-${id}`" :key="`modal-${id}`" class="modal">
+
       <div class="modal-box text-left">
         <form method="dialog">
           <button class="btn btn-soft btn-primary btn-sm btn-square absolute right-2 top-2">
@@ -147,22 +148,21 @@
         <p><strong>ID Orientador:</strong> {{ registro.id_orientador.nome }}</p>
         <p><strong>Data de Início:</strong> {{ registro.data_inicio }}</p>
         <p><strong>Data de Fim:</strong> {{ registro.data_fim }}</p>
-        <!-- Situação e finalização só se concluída -->
 
-  <strong>Situação:</strong>
 
-              <span :class="registro.concluida ? 'text-red-500 font-semibold' : 'text-green-600 font-semibold'">
-                {{ registro.concluida ? 'Finalizada' : 'Vigente' }}
-              </span>
+        <strong>Situação:</strong>
 
-<p v-if="registro.concluida && registro.tipo_finalizacao !== null">
-  <strong>Tipo de Finalização:</strong> {{ formatarFinalizacao(registro.tipo_finalizacao) }}
-</p>
+        <span :class="registro.concluida ? 'text-red-500 font-semibold' : 'text-green-600 font-semibold'">
+          {{ registro.concluida ? 'Finalizada' : 'Vigente' }}
+        </span>
 
-<!-- Tipo de interrupção só se finalizada E tipo_finalizacao = 1 -->
-<p v-if="registro.concluida && registro.tipo_finalizacao === 1 && registro.tipo_interrupcao !== null">
-  <strong>Tipo de Interrupção:</strong> {{ formatarInterrupcao(registro.tipo_interrupcao) }}
-</p>
+        <p v-if="registro.concluida && registro.tipo_finalizacao !== null">
+          <strong>Tipo de Finalização:</strong> {{ formatarFinalizacao(registro.tipo_finalizacao) }}
+        </p>
+
+        <p v-if="registro.concluida && registro.tipo_finalizacao === 1 && registro.tipo_interrupcao !== null">
+          <strong>Tipo de Interrupção:</strong> {{ formatarInterrupcao(registro.tipo_interrupcao) }}
+        </p>
         <p><strong>Número da Caixa Baixa:</strong> {{ registro.caixa_baixa_num }}</p>
       </div>
     </dialog>
@@ -179,6 +179,7 @@ const statusSelecionado = ref('') //mostrar os status filtados
 const anoSelecionado = ref('')  //mostrar os anos selecionados
 const anosDisponiveis = ref([]) //mostrar na barra de seleção só anos cadastrados
 const campoBusca = ref('')
+const apiFiltro = 'http://127.0.0.1:8000/api/mse/filtro'
 
 
 onMounted(() => {
@@ -200,6 +201,7 @@ onMounted(() => {
 })
 
 
+
 //função por abrir o modal de visualização
 function abrirModal(id) {
   document.getElementById(`modal-${id}`).showModal()
@@ -217,10 +219,10 @@ function formatarTipoMse(tipo) {
 function formatarFinalizacao(tipo) {
   if (tipo === null || tipo === undefined) return ''
   return tipo === 0 ? 'Concluída' :
-         tipo === 1 ? 'Interrompida' :
-         tipo === 2 ? 'Transferida' :
-         tipo === 3 ? 'Regredida' :
-         'Desconhecido'
+    tipo === 1 ? 'Interrompida' :
+      tipo === 2 ? 'Transferida' :
+        tipo === 3 ? 'Regredida' :
+          'Desconhecido'
 }
 
 
@@ -279,4 +281,3 @@ function limparFiltros() {
   statusSelecionado.value = ''
 }
 </script>
-
