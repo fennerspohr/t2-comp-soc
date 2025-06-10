@@ -56,6 +56,7 @@
           class="input flex-1"
           v-model="novoContato"
           placeholder="Digite um contato"
+          maxlength=13
         />
         <button
           type="button"

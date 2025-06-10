@@ -24,7 +24,7 @@
       </div>
         <div class="flex items-center gap-2">
           <!-- filtro sexo -->
-          <select class="select select-primary w-24 h-8 text-sm" v-model="sexoSelecionado">
+          <select class="select select-primary w-24 h-8 text-sm" v-model="sexoSelecionado" @change="aplicarBusca">
             <option disabled value="">Sexo</option>
             <option value="0"> Masculino </option>
             <option value="1"> Feminino </option>
@@ -48,7 +48,7 @@
             <th>Nome</th>
             <th>Sexo</th>
             <th>Data de Nascimento</th>
-            <th>CT</th>
+            <th>Conselheiro Tutelar</th>
           </tr>
         </thead>
         <!-- Corpo da Tabela -->
