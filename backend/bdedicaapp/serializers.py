@@ -36,3 +36,8 @@ class MSESerializer(serializers.ModelSerializer):
     class Meta:
         model = MSE
         fields = "__all__"
+
+class CountSerializer(serializers.Serializer):
+    mse = serializers.IntegerField()
+    adolescente = serializers.IntegerField()
+    orientador = serializers.IntegerField()

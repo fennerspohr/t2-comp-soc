@@ -4,7 +4,16 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import MSE, Adolescente, Orientador, AtoInfracional
-from .serializers import MSESerializer, AdolescenteSerializer, OrientadorSerializer, AtoInfracionalSerializer
+from .serializers import MSESerializer, AdolescenteSerializer, OrientadorSerializer, AtoInfracionalSerializer, CountSerializer
+
+class CountAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        mse = MSE.objects.count()
+        adolescente = Adolescente.objects.count()
+        orientador = Orientador.objects.count()
+        serializer = CountSerializer({"mse":mse, "adolescente":adolescente, "orientador":orientador})
+        return Response(serializer.data)
+
 
 class MSEAPIView(APIView):
     def get(self, request, *args, **kwargs):
