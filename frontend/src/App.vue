@@ -1,26 +1,27 @@
 <script setup>
 import Cadastro from './Cadastro.vue'
 import { ref, computed } from 'vue'
-import navbar from './components/navbar.vue'
+import Navbarteste from './components/navbarteste.vue'
+import listamse from './listamse.vue'
 import telaLogin from './telaLogin.vue'
 import CadastroAdolescente from './CadastroAdolescente.vue'
 import listaAdolescentes from './lista-adolescentes.vue'
 import cadastromse from './cadastromse.vue'
 import editarmse from './editarmse.vue'
 import editarAdolescente from './editar-adolescente.vue'
-import unidades from './unidades.vue'
-import cam from './components/cam.vue'
+import home from './home.vue'
+
 
 const routes = {  //aqui a gente atribui um componente ou pagina pra uma url
   '/': telaLogin,
   '/about': Cadastro,
   '/about/cadastro-adolescente': CadastroAdolescente,
+  '/listamse': listamse,
   '/lista-adolescentes': listaAdolescentes, 
   '/about/cadastromse': cadastromse,
   '/editarmse/:id': editarmse,  //rota pra edição com o id
   '/editar-adolescente/:id': editarAdolescente,
-  '/unidades': unidades,
-  '/cam': cam,
+  '/home': home,
 }
 
 const currentPath = ref(window.location.hash) //pega o path atual, que eh o que fica depois da # na url (antes de clicar nos botoes nao tem # nenhuma pq eh a url inicial)
@@ -56,9 +57,8 @@ const currentView = computed(() => {
 </script>
 
 <template>
-  <navbar></navbar> <!-- o que estiver nesse template vai ser exibido independente da url-->
+  <Navbarteste></Navbarteste> <!-- o que estiver nesse template vai ser exibido independente da url-->
   <component :is="currentView" /> <!--Aqui é exibido o conteudo da view correspondente -->
-  <cam></cam>
 </template>
 
 <style>
